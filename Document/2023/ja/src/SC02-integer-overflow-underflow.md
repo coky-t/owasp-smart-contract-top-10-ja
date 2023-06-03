@@ -1,15 +1,14 @@
-# Integer Overflow and Underflow
+# 整数オーバーフローとアンダーフロー (Integer Overflow and Underflow)
 
-### Description
-Integer overflow and underflow occur when arithmetic operations exceed the maximum or minimum size that an integer type variable can hold, causing the value to wrap around to the opposite extreme.
+### 説明
+整数オーバーフローとアンダーフローは算術演算において整数型変数が保持できる最大値または最小値を超えると発生し、値が逆の対極にある値にラップアラウンドします。
 
-### Impact
-An attacker can exploit these vulnerabilities to disrupt contract logic, possibly stealing assets or minting an excessive amount of tokens.
+### 影響
+攻撃者はこれらの脆弱性を悪用してコントラクトロジックを混乱させ、資産を盗んだり、過剰な量のトークンを作り出す可能性があります。
 
-### Steps to Fix
-1. Use SafeMath or similar libraries that offer functions for safe arithmetic operations.
-2. Upgrade to Solidity version 0.8.0 or later, which includes built-in protection against overflow and underflow.
+### 修正手順
+1. 安全な算術演算のための関数を提供する SafeMath や同様のライブラリを使用します。
+2. Solidity バージョン 0.8.0 以降にアップグレードします。これにはオーバーフローとアンダーフローに対するビルトインの保護が含まれています。
 
-### Example
-The BatchOverflow exploit in multiple ERC20 smart contracts allowed attackers to generate an almost infinite amount of tokens by exploiting an integer overflow vulnerability.
-
+### 事例
+複数の ERC20 スマートコントラクトにおける BatchOverflow エクスプロイトにより、攻撃者は整数オーバーフローの脆弱性を悪用して、ほぼ無限の量のトークンを生成できました。
