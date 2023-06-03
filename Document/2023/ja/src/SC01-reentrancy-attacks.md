@@ -1,15 +1,15 @@
-# Reentrancy Attacks
+# 再入攻撃 (Reentrancy Attacks)
 
-### Description
-A reentrancy attack happens when a function is externally invoked during its execution, allowing it to be run multiple times in a single transaction. This typically occurs when a contract calls another contract before it resolves its state.
+### 説明
+再入攻撃は機能が実行中に外部から呼び出された際に発生し、単一トランザクションで複数回実行される可能性があります。これは一般的にコントラクトがその状態を解決する前に別のコントラクトを呼び出すときに発生します。
 
-### Impact
-A successful reentrancy attack can lead to fund drains, unauthorized function calls, or state changes that disrupt the normal operations of the contract.
+### 影響
+再入攻撃が成功すると資金の流出、認可されていない機能の呼び出し、コントラクトの通常操作を混乱させる状態変更につながる可能性があります。
 
-### Steps to Fix
-1. Make sure you follow the Checks-Effects-Interactions (CEI) pattern: check conditions, then make changes, then interact with other contracts.
-2. Use a reentrancy guard or mutual exclusion lock (mutex) to block recursive calls from external contracts during a function's execution.
-3. Regularly update to the latest version of Solidity, which includes inherent protection against reentrancy attacks.
+### 修正手順
+1. Checks-Effects-Interactions (CEI) に従っていることを確認します。つまり、条件をチェックし、変更を加え、他のコントラクトとやり取りします。
+2. 再入ガードまたは相互排他ロック (ミューテックス) を使用して、機能の実行中に外部コントラクトからの再起呼び出しをブロックします。
+3. 定期的に Solidity を最新バージョンに更新します。これには再入攻撃に対する固有の保護が含まれています。
 
-### Example
-The infamous DAO hack was a reentrancy attack. An attacker exploited a reentrancy vulnerability to drain around 3.6 million Ether from the contract.
+### 事例
+悪名高い DAO ハックは再入攻撃でした。攻撃者は再入の脆弱性を悪用し、コントラクトから約 360 万 Ether を流出させました。
