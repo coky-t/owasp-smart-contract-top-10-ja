@@ -1,14 +1,14 @@
-# Timestamp Dependence
+# タイムスタンプの依存性 (Timestamp Dependence)
 
-### Description
-Contracts that depend on block timestamps for critical operations are susceptible to manipulation, as miners can slightly adjust the timestamps.
+### 説明
+重要な操作をブロックタイムスタンプに依存するコントラクトは、マイナーがタイムスタンプをわずかに調整できるため、改竄の影響を受けやすくなります。
 
-### Impact
-This can lead to unfair advantages in games, easier puzzle solutions, and flawed randomness, all of which an attacker can exploit.
+### 影響
+これにより、ゲームにおける不公平な優位性、より簡単なパズルの解決、欠陥のあるランダム性につながる可能性があり、すべてが攻撃者に悪用される可能性があります。
 
-### Steps to Fix
-1. Avoid reliance on `block.timestamp` or `now` for crucial contract functionalities.
-2. Use `block.number` for time-keeping if needed, as it is harder to manipulate.
+### 修正手順
+1. 重要なコントラクト機能については `block.timestamp` や `now` への依存を避けます。
+2. 操作が難しいため、必要に応じて時間管理に `block.number` を使用します。
 
-### Example
-In a betting smart contract, if the outcome depends on a timestamp (like an even or odd timestamp deciding the winner), a miner could potentially manipulate the timestamp to affect the result.
+### 事例
+賭け事のスマートコントラクトでは、結果がタイムスタンプに依存する場合 (偶数または奇数のタイムスタンプが勝者を決定するなど) 、マイナーはタイムスタンプを操作して結果に影響を与える可能性があります。
