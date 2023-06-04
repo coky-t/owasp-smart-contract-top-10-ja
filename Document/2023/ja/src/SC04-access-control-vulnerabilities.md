@@ -1,15 +1,15 @@
-# Access Control Vulnerabilities
+# アクセス制御の脆弱性 (Access Control Vulnerabilities)
 
-### Description
-Access control vulnerabilities exist when a contract fails to properly restrict who can call certain functions. This can result in unauthorized function calls.
+### 説明
+アクセス制御の脆弱性はコントラクトが特定の機能を呼び出せる人物を適切に制限していない場合に存在します。これにより認可されていない機能呼び出しが発生する可能性があります。
 
-### Impact
-If a contract function isn't protected adequately, unauthorized actors can manipulate the contract state, steal funds, or take other damaging actions.
+### 影響
+コントラクト機能が適切に保護されていない場合、認可されていないアクターがコントラクトの状態を操作したり、資金を盗んだり、その他の損害を与える行為を行う可能性があります。
 
-### Steps to Fix
-1. Use access control patterns such as Ownable or RBAC (Role-Based Access Control) in your contracts.
-2. Regularly audit the contract for potential access control vulnerabilities.
-3. Limit the capabilities of individual functions and roles within the contract.
+### 修正手順
+1. コントラクトに Ownable や RBAC (Role-Based Access Control) などのアクセス制御パターンを使用します。
+2. 潜在的なアクセス制御の脆弱性がないか、定期的にコントラクトを監査します。
+3. コントラクト内の個々の機能と役割の能力を制限します。
 
-### Example
-The Parity Wallet vulnerability resulted from an unprotected function in a library contract, allowing an attacker to take ownership of the contract and self-destruct it, freezing over 500,000 Ether.
+### 事例
+Parity Wallet の脆弱性はライブラリコントラクトの保護されていない機能に起因し、攻撃者がコントラクトの所有権を得て自己破壊し、500,000 Ether を凍結できました。
