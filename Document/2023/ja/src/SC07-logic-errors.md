@@ -1,15 +1,15 @@
-# Logic Errors
+# ロジックエラー (Logic Errors)
 
-### Description
-Logic errors occur when the contract's code doesn't correctly implement the intended logic. This might be due to misunderstanding, error, or omission on the developer's part.
+### 説明
+ロジックエラーはコントラクトのコードが意図したロジックを正しく実装していない場合に発生します。これは開発者の誤解、エラー、不作為によるものである可能性があります。
 
-### Impact
-Logic errors can cause the contract to behave unexpectedly or even become entirely unusable. They can lead to the loss of funds, incorrect distribution of tokens, or other adverse outcomes.
+### 影響
+ロジックエラーによりコントラクトが予期しない動作をしたり、完全に使用できなくなる可能性があります。これらは資金の損失、トークンの不正な配布、その他の好ましくない結果につながる可能性があります。
 
-### Steps to Fix
-1. Use automated testing frameworks to write extensive unit tests covering all possible edge cases.
-2. Conduct thorough code reviews and audits.
-3. Document the intended behavior of each function and module, then compare it to the actual implementation.
+### 修正手順
+1. 自動テストフレームワークを使用して、考えうるすべてのエッジケースをカバーする広範なユニットテストを記述します。
+2. 徹底したコードレビューと監査を実施します。
+3. 各機能やモジュールの意図した動作を文書化し、実際の実装と比較します。
 
-### Example
-The parity multi-sig wallet had a logic error that allowed a user to take ownership of a library contract and self-destruct it, which indirectly caused the freezing of funds in all dependent contracts.
+### 事例
+パリティマルチシグウォレットにロジックエラーがあり、ユーザーがライブラリコントラクトの所有権を取得して自己破壊できたため、間接的にすべての依存コントラクトの資金の凍結を引き起こしました。
