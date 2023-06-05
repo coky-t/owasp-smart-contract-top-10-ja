@@ -1,15 +1,15 @@
-# Denial of Service (DoS) Attacks
+# サービス拒否攻撃 (Denial of Service (DoS) Attacks)
 
-### Description
-Denial of Service (DoS) is an attack where an adversary manages to halt the normal operations of a smart contract, making it unavailable to users.
+### 説明
+サービス拒否 (DoS) は攻撃者がスマートコントラクトの通常操作を停止し、ユーザーが利用できないようにする攻撃です。
 
-### Impact
-A DoS attack can disrupt the functionality of the smart contract, preventing users from interacting with it, and in some cases, resulting in financial loss.
+### 影響
+DoS 攻撃はスマートコントラクトの機能を混乱させ、ユーザーがスマートコントラクトとやり取りすることを妨げ、場合によっては金銭的損失を招く可能性があります。
 
-### Steps to Fix
-1. Be careful when using the 'send' and 'transfer' functions as they can potentially cause a DoS attack. Use 'call' instead, and handle the potential 'false' return value.
-2. Limit the number of iterations or actions that can be taken in a single transaction to avoid reaching the gas limit.
-3. Implement pull payments for refunds or withdrawals, which separates the process of awarding and withdrawing funds into two separate transactions.
+### 修正手順
+1. 'send' および 'transfer' 機能は DoS 攻撃を引き起こす可能性があるため、使用する際には注意します。代わりに 'call' を使用し、潜在的に 'false' となる返り値を処理します。
+2. 単一トランザクションで実行できるイテレーションやアクションの数を制限し、ガス制限に到達することを避けます。
+3. 返金や出金にはプルペイメントを実装し、資金の授与と出金を二つの個別のトランザクションに分離します。
 
-### Example
-A smart contract auction could become a victim of a DoS attack if the highest bidder is a malicious contract that always throws an exception when the contract tries to refund the second-highest bidder.
+### 事例
+スマートコントラクトオークションは最高入札者がコントラクトが二番目に高い入札者に返金しようとすると常に例外をスローする悪意のあるコントラクトである場合、DoS 攻撃の被害者になる可能性があります。
