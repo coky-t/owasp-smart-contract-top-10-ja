@@ -1,14 +1,14 @@
-# Unchecked External Calls
+# チェックされていない外部呼び出し (Unchecked External Calls)
 
-### Description
-In Ethereum, when a contract calls another contract, the called contract can fail silently without throwing an exception. If the calling contract doesn't check the outcome of the call, it might assume that the call was successful, even if it wasn't.
+### 説明
+Ethereum では、コントラクトが別のコントラクトを呼び出すと、呼び出されたコントラクトは例外をスローせずに静かに失敗することがあります。呼び出し側のコントラクトが呼び出し結果をチェックしない場合、呼び出しが成功していなくても、成功したとみなす可能性があります。
 
-### Impact
-Unchecked external calls can lead to failed transactions, lost funds, or incorrect contract state.
+### 影響
+チェックされていない外部呼び出しはトランザクションの失敗、資金の損失、不正なコントラクト状態につながる可能性があります。
 
-### Steps to Fix
-1. Always check the return value of `call`, `delegatecall`, and `callcode`.
-2. Use Solidity's `transfer` or `send` functions instead of `call.value()()`, as they automatically reverts on failure.
+### 修正手順
+1. `call`, `delegatecall`, `callcode` の返り値を常にチェックします。
+2. 失敗すると自動的に元に戻るため、 `call.value()()` の代わりに Solidity の `transfer` または `send` 機能を使用します。
 
-### Example
-A contract uses the `call` function to send Ether to an address. If the call fails (for example, if the recipient is a contract without a payable fallback function), the sending contract might incorrectly assume the transfer was successful.
+### 事例
+コントラクトは `call` 機能を使用して Ether をあるアドレスに送信します。呼び出しが失敗した場合 (たとえば、受信者が支払い可能なフィードバック機能のないコントラクトの場合) 、送信側のコントラクトは転送が成功したと誤って想定する可能性があります。
