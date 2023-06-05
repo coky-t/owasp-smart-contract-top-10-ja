@@ -1,15 +1,14 @@
-# Insecure Randomness
+# 安全でないランダム性 (Insecure Randomness)
 
-### Description
-Generating randomness in Ethereum is challenging because every node must come to the same conclusion on the state of the blockchain. Hence, naive approaches to generate randomness can be manipulated by miners or observant attackers.
+### 説明
+Ethereum でランダム性を生成することはすべてのノードがブロックチェーンの状態について同じ結末に至る必要があるため困難です。したがって、ランダム性を生成する単純なアプローチはマイナーや観察力のある攻撃者によって操作される可能性があります。
 
-### Impact
-Insecure randomness can be exploited by attackers to gain an unfair advantage in games, lotteries, or any other contracts that rely on random number generation.
+### 影響
+安全でないランダム性を攻撃者が悪用して、乱数生成に依存するゲーム、くじ、その他のコントラクトにおいて不当な利益を得る可能性があります。
 
-### Steps to Fix
-1. Use commit-reveal schemes, where users submit hashed values and reveal them later, to generate randomness.
-2. Use external oracle services that provide random numbers.
+### 修正手順
+1. Commit Reveal スキームを使用して、ユーザーがハッシュ値を送信し、のちにそれを明らかにし、ランダム性を生成します。
+2. 乱数を提供する外部オラクルサービスを使用します。
 
-### Example
-A lottery smart contract using `block.timestamp` for generating a random number can be manipulated by a miner, making the lottery unfair.
-
+### 事例
+乱数の生成に `block.timestamp` を使用するくじのスマートコントラクトはマイナーによって操作され、くじが不公平になる可能性があります。
