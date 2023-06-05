@@ -1,15 +1,15 @@
-# Gas Limit Vulnerabilities
+# ガス制限の脆弱性 (Gas Limit Vulnerabilities)
 
-### Description
-If a function requires more gas than the block gas limit to complete its execution, it will inevitably fail. These vulnerabilities typically occur in loops that iterate over dynamic data structures.
+### 説明
+機能の実行を完了するためにブロックガス制限を超えるガスを必要とする場合、その機能は必然的に失敗します。このような脆弱性は一般的に動的データ構造を反復するループで発生します。
 
-### Impact
-Functions vulnerable to gas limits can become uncallable, locking funds or freezing contract state.
+### 影響
+ガス制限に対して脆弱な機能は呼び出し不能、資金のロック、コントラクト状態の凍結となる可能性があります。
 
-### Steps to Fix
-1. Avoid loops that iterate over dynamic data structures. If possible, use mappings and keep track of keys separately.
-2. Implement gas-efficient code and test functions with large inputs to ensure they won't exceed the block gas limit.
-3. Break down complex computations into multiple transactions if needed.
+### 修正手順
+1. 動的データ構造を反復するループを避けます。可能であれば、マッピングを使用してキーを個別に追跡します。
+2. ガス効率の高いコードを実装し、大規模な入力で機能をテストして、ブロックガス制限を超えないことを確認します。
+3. 必要に応じて、複雑な計算を複数のトランザクションに分割します。
 
-### Example
-A token smart contract that implements a function to transfer all tokens of an array of addresses could exceed the block gas limit if the array is too large.
+### 事例
+アドレスの配列のすべてのトークンを転送する機能を実装するトークンスマートコントラクトは配列が大きすぎる場合ブロックガス制限を超える可能性があります。
