@@ -51,4 +51,4 @@ Attribution-ShareAlike 4.0 license. Some rights reserved.
 
 ## プロジェクトリーダー
 - [Jinson Varghese Behanan](mailto:jinson@owasp.org) (Twitter: [@JinsonCyberSec](https://twitter.com/JinsonCyberSec))
-- [Shashank](mailto:shashank@credshields.com) (Twitter: [@cyberboyIndia](https://x.com/cyberboyIndia))
+- [Shashank](mailto:shashank.shashank@owasp.org) (Twitter: [@cyberboyIndia](https://x.com/cyberboyIndia))
