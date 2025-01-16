@@ -1,10 +1,10 @@
-# SC02:2025 - Price Oracle Manipulation
+# SC02:2025 - 価格オラクル操作 (Price Oracle Manipulation)
 
-## Description:
-Price Oracle Manipulation is a critical vulnerability in smart contracts that rely on external data feeds (oracles) to fetch prices or other information. In decentralized finance (DeFi), oracles are used to provide real-world data, such as asset prices, to smart contracts. However, if the data provided by the oracle is manipulated, it can result in incorrect contract behavior. Attackers can exploit oracles by manipulating the data they supply, leading to devastating consequences such as unauthorized withdrawals, excessive leverage, or even draining liquidity pools. Proper safeguards and validation mechanisms are essential to prevent this type of attack.
-Example (Vulnerable contract):
+## 説明:
+価格オラクル操作は、価格やその他の情報を取得するために外部データフィード (オラクル) に依存するスマートコントラクトの重大な脆弱性です。分散型金融 (DeFi) では、オラクルは資産価格などの現実世界のデータをスマートコントラクトに提供するために使用されます。ただし、オラクルによって提供されるデータが操作されると、コントラクトの動作が不正確になる可能性があります。攻撃者は、オラクルが提供するデータを操作することでオラクルを悪用し、不正な引き落とし、過剰なレバレッジ、さらには流動性プールの枯渇などの壊滅的な結果につながる可能性があります。この種の攻撃を防ぐには、適切なセーフガードとバリデーションのメカニズムが不可欠です。
 
-## Example (Vulnerable Contract):
+
+## 事例 (脆弱なコントラクト):
 
 ```
 // SPDX-License-Identifier: MIT
@@ -40,18 +40,18 @@ contract PriceOracleManipulation {
 }
 ```
 
-### Impact:
-- Attackers could manipulate the oracle to inflate the price of an asset, allowing them to borrow more funds than they would otherwise be entitled to.
-- In cases where the manipulated price leads to a false assessment of collateral, legitimate users may face liquidation due to incorrect valuations.
-- If an oracle is compromised, attackers can exploit the manipulated data to drain the contract’s liquidity pools or even cause a contract to become insolvent.
+### 影響:
+- 攻撃者はオラクルを操作して資産の価格を吊り上げ、本来得られるはずのものよりも多くの資金を借り入れることができます。
+- 操作された価格によって担保の誤った評価につながる場合、正当なユーザーが誤った評価による清算に直面する可能性があります。
+- オラクルが侵害された場合、攻撃者は操作されたデータを悪用してコントラクトの流用性プールを枯渇させたり、さらにはコントラクトを支払い不能にできます。
 
-### Remediation:
-- Aggregate data from multiple, independent oracles to reduce the risk of manipulation by any single source.
-- Set minimum and maximum thresholds for the prices received from the oracle to prevent drastic price swings from affecting the contract’s logic.
-- Introduce a time lock between price updates to prevent instant changes that could be exploited by attackers.
-- Use cryptographic proofs to ensure the authenticity of data received from oracles, such as requiring signatures from trusted parties.
+### 対策:
+- 複数の独立したオラクルからデータを集約して、単一のソースによる操作のリスクを軽減します。
+- オラクルから受け取る価格の最小と最大の閾値を設定して、急激な価格変動がコントラクトのロジックに影響を及ぼすことを防ぎます。
+- 価格更新の間にタイムロックを導入して、攻撃者に悪用される可能性のある即時変更を防ぎます。
+- 信頼できるパーティからの署名を要求するなど、暗号論的証明を使用してオラクルから受け取るデータの真正性を確保します。
 
-### Example (Fixed version):
+### 事例 (修正バージョン):
 
 ```
 // SPDX-License-Identifier: MIT
@@ -87,6 +87,6 @@ contract PriceOracleManipulation {
 }
 ```
 
-### Examples of Smart Contracts that fell victim to Price Oracle Manipulation Attacks :
-1. [Polter Finance Hack Analysis](https://blog.solidityscan.com/polter-finance-hack-analysis-c5eaa6dcfd40) 
-2. [BonqDAO Protocol](https://polygonscan.com/address/0x4248fd3e2c055a02117eb13de4276170003ca295#code) : A Comprehensive [Hack Analysis](https://blog.solidityscan.com/bonqdao-protocol-hack-analysis-oracle-manipulation-8e6978149a66)
+### 価格オラクル操作攻撃の被害を受けたスマートコントラクトの事例:
+1. [Polter Finance ハック分析](https://blog.solidityscan.com/polter-finance-hack-analysis-c5eaa6dcfd40) 
+2. [BonqDAO プロトコル](https://polygonscan.com/address/0x4248fd3e2c055a02117eb13de4276170003ca295#code) : 包括的な [ハック分析](https://blog.solidityscan.com/bonqdao-protocol-hack-analysis-oracle-manipulation-8e6978149a66)
