@@ -1,9 +1,9 @@
-# SC04:2025 - Lack of Input Validation
+# SC04:2025 - 入力バリデーションの欠如 (Lack of Input Validation)
 
-## Description:
-Input validation ensures that a smart contract processes only valid and expected data. When contracts fail to validate incoming inputs, they inadvertently expose themselves to security risks such as logic manipulation, unauthorized access, and unexpected behavior.For example, if a contract assumes user inputs are always valid without verification, attackers can exploit this trust to introduce malicious data. This lack of input validation compromises the security and reliability of the smart contract.
+## 説明:
+入力バリデーションはスマートコントラクトが有効で期待されるデータのみを処理することを確保します。コントラクトが受信した入力の検証を怠ると、ロジックの操作、不正アクセス、予期しない動作などのセキュリティリスクに不注意にさらされることになります。たとえば、コントラクトがユーザー入力を検証なしで常に有効であると想定している場合、攻撃者はこの信頼を悪用して悪意のあるデータを持ち込むことができます。この入力バリデーションの欠如はスマートコントラクトのセキュリティと信頼性を損ないます。
 
-## Example (Vulnerable Contract):
+## 事例 (脆弱なコントラクト):
 
 ```
 // SPDX-License-Identifier: MIT
@@ -18,19 +18,19 @@ contract Solidity_LackOfInputValidation {
     }
 }
 ```
-### Impact:
-- Attackers can manipulate inputs to drain funds, steal tokens, or cause other financial harm.
-- Improper inputs can corrupt state variables, leading to unreliable and insecure contract behavior.
-- Attackers may exploit the contract to perform unauthorized transactions or operations, impacting both the user and the broader system.
+### 影響:
+- 攻撃者は入力を操作して資金を流出したり、トークンを盗んだり、その他の金銭的損害を引き起こす可能性があります。
+- 不適切な入力によって状態変数が破損し、信頼できなく安全でないコントラクタの動作につながる可能性があります。
+- 攻撃者はコントラクトを悪用して不正な取引や操作を実行し、ユーザーとシステム全体に影響を及ぼす可能性があります。
 
-### Remediation:
-- Ensure that inputs conform to the expected type.
-- Validate that inputs fall within acceptable boundaries.
-- Ensure that only authorized entities can invoke specific functions.
-- Validate the structure of inputs, such as address formats or string lengths.
-- Always halt execution and provide clear error messages when inputs fail validation.
+### 対策:
+- 入力が期待したタイプに適合していることを確認します。
+- 入力が許容範囲内にあることを確認します。
+- 認可されたエンティティのみが特定の関数を呼び出せることを確認します。
+- アドレス形式や文字列長など、入力の構造を確認します。
+- 入力がバリデーションに失敗した場合には、常に実行を停止し、明確なエラーメッセージを表示します。
 
-### Example (Fixed version):
+### 事例 (修正バージョン):
 ```
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
@@ -54,6 +54,6 @@ contract LackOfInputValidation {
     }
 }
 ```
-### Examples of Smart Contracts that fell victim to attacks due to Lack of Input Validation:
-1. [Convergence Finance](https://etherscan.io/address/0x2b083beaaC310CC5E190B1d2507038CcB03E7606#code) : A Comprehensive [Hack Analysis](https://blog.solidityscan.com/convergence-finance-hack-analysis-12e6acd9ea08)
-2. [Socket Gateway](https://etherscan.io/address/0x3a23F943181408EAC424116Af7b7790c94Cb97a5#code) : A Comprehensive [Hack Analysis](https://blog.solidityscan.com/socket-gateway-hack-analysis-b0e9567f7d3e)
+### 入力バリデーションの欠如の被害を受けたスマートコントラクトの事例:
+1. [Convergence Finance](https://etherscan.io/address/0x2b083beaaC310CC5E190B1d2507038CcB03E7606#code) : 包括的な [ハック分析](https://blog.solidityscan.com/convergence-finance-hack-analysis-12e6acd9ea08)
+2. [Socket Gateway](https://etherscan.io/address/0x3a23F943181408EAC424116Af7b7790c94Cb97a5#code) : 包括的な [ハック分析](https://blog.solidityscan.com/socket-gateway-hack-analysis-b0e9567f7d3e)
