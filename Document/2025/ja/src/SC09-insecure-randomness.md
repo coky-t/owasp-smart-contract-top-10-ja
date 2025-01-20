@@ -1,18 +1,18 @@
-## SC09:2025 - Insecure Randomness
+## SC09:2025 - 安全でないランダム性 (Insecure Randomness)
 
-### Description:
-Random number generators are essential for applications like gambling, game-winner selection, and random seed generation. On Ethereum, generating random numbers is challenging due to its deterministic nature. Since Solidity cannot produce true random numbers, it relies on pseudorandom factors. Additionally, complex calculations in Solidity are costly in terms of gas.
+### 説明:
+乱数生成器は、ギャンブル、ゲームの勝者選択、ランダムシード生成など、アプリケーションに不可欠です。Ethereum では、その決定論的な性質のため、乱数を生成することは困難です。Solidity は真の乱数を生成できないため、擬似乱数要素に依存します。さらに、Solidity での複雑な計算はガスに関してコストがかかります。
 
-*Insecure Mechanisms Create Random Numbers in Solidity: Developers often use block-related methods to generate random numbers, such as:*
-  - block.timestamp: Current block timestamp.
-  - blockhash(uint blockNumber): Hash of a given block (only for the last 256 blocks).
-  - block.difficulty: Current block difficulty.
-  - block.number: Current block number.
-  - block.coinbase: Address of the current block’s miner.
-    
-These methods are insecure because miners can manipulate them, affecting the contract’s logic.
+*Solidity での安全でない乱数生成メカニズム: 開発者は以下のような block 関連メソッドを使用して、乱数を生成することがよくあります。*
+  - block.timestamp: 現在のブロックのタイムスタンプ。
+  - blockhash(uint blockNumber): 指定されたブロックのハッシュ (直近の 256 ブロックのみ)。
+  - block.difficulty: 現在のブロックの difficulty 。
+  - block.number: 現在のブロック番号。
+  - block.coinbase: 現在のブロックのマイナーのアドレス。
 
-### Example (Vulnerable contract):
+これらのメソッドは、マイナーが操作して、コントラクトのロジックに影響を与えることができるため、安全ではありません。
+
+### 事例 (脆弱なコントラクト):
 ```
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
@@ -34,17 +34,17 @@ contract Solidity_InsecureRandomness {
     }
 }
 ```
-### Impact:
-- Insecure randomness can be exploited by attackers to gain an unfair advantage in games, lotteries, and any other contracts that rely on random number generation. By predicting or manipulating the supposedly random outcomes, attackers can influence the results in their favor. This can lead to unfair wins, financial losses for other participants, and a general lack of trust in the smart contract's integrity and fairness. 
+### 影響:
+- 安全でないランダム性は、ゲーム、くじ、その他乱数生成に依存するあらゆるコントラクトにおいて、攻撃者が不当に優位を得るために悪用される可能性があります。本来ランダムであるはずの結果を予測または操作することで、攻撃者は結果を自分たちに有利に影響を及ぼすことができます。これは不公平な勝利、他の参加者の金銭的損失、スマートコントラクトの完全性と公平性に対する一般的な信頼の欠如につながる可能性があります。
 
-### Remediation:
-- Using oracles (Oraclize) as external sources of randomness. Care should be taken while trusting the Oracle. Multiple Oracles can also be used.
-- Using Commitment Schemes — A cryptographic primitive that uses a commit-reveal approach can be followed. It also has wide applications in coin flipping, zero-knowledge proofs, and secure computation. E.g.: RANDAO.
-- Chainlink VRF — It is a provably fair and verifiable random number generator (RNG) that enables smart contracts to access random values without compromising security or usability.
-- The Signidice Algorithm — Suitable for PRNG in applications involving two parties using cryptographic signatures.
-- Bitcoin Block Hashes — Oracles like BTCRelay can be used which act as a bridge between Ethereum and Bitcoin. Contracts on Ethereum can request future block hashes from the Bitcoin Blockchain as a source of entropy. It should be noted that this approach is not safe against the miner incentive problem and should be implemented with caution.
+### 対策:
+- オラクルをランダム性の外部ソースとして使用 (Oraclize) します。オラクルを信頼する際には注意が必要です。複数のオラクルを使用することもできます。
+- コミットメントスキームを使用します。commit-reveal アプローチを使用する暗号プリミティブに従うことができます。コインフリップ、ゼロ知識証明、セキュアコンピュテーションにも広く応用しています。例: RANDAO
+- Chainlink VRF — 証明可能な公平性と検証可能な乱数生成器 (RNG) で、スマートコントラクトがセキュリティやユーザービリティを損なうことなくランダム値にアクセスできます。
+- Signidice アルゴリズム — 暗号署名を使用する二者間のアプリケーションにおける PRNG に適しています。
+- ビットコインブロックハッシュ — BTCRelay などのオラクルを使用します。Ethereum と Bitcoin 間の橋渡しとして機能します。Ethereum のコントラクトはエントロピーのソースとして Bitcoin Blockchain から将来のブロックハッシュを要求できます。このアプローチはマイナーのインセンティブ問題に対して安全ではないため、慎重に実装する必要があることに注意すべきです。
 
-### Example (Fixed version):
+### 事例 (修正バージョン):
 
 ```
 // SPDX-License-Identifier: MIT
@@ -83,6 +83,6 @@ contract Solidity_InsecureRandomness is VRFConsumerBase {
 }
 ```
 
-### Examples of Smart Contracts That Fell Victim to Insecure Randomness Attacks:
-1. [Roast Football Hack](https://bscscan.com/address/0x26f1457f067bf26881f311833391b52ca871a4b5#code) : A Comprehensive [Hack Analysis](https://blog.solidityscan.com/roast-football-hack-analysis-e9316170c443)
-2. [FFIST Hack](https://bscscan.com/address/0x80121da952a74c06adc1d7f85a237089b57af347#code) : A Comprehensive [Hack Analysis](https://blog.solidityscan.com/ffist-hack-analysis-9cb695c0fad9)
+### 安全でないランダム性攻撃の被害を受けたスマートコントラクトの事例:
+1. [Roast Football ハック](https://bscscan.com/address/0x26f1457f067bf26881f311833391b52ca871a4b5#code) : 包括的な [ハック分析](https://blog.solidityscan.com/roast-football-hack-analysis-e9316170c443)
+2. [FFIST ハック](https://bscscan.com/address/0x80121da952a74c06adc1d7f85a237089b57af347#code) : 包括的な [ハック分析](https://blog.solidityscan.com/ffist-hack-analysis-9cb695c0fad9)
