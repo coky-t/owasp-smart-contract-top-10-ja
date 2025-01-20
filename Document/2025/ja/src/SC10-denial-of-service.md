@@ -1,9 +1,9 @@
-## SC10:2025 - Denial Of Service
+## SC10:2025 - サービス拒否 (Denial Of Service)
 
-### Description:
-A Denial of Service (DoS) attack in Solidity involves exploiting vulnerabilities to exhaust resources like gas, CPU cycles, or storage, making a smart contract unusable. Common types include gas exhaustion attacks, where malicious actors create transactions requiring excessive gas, reentrancy attacks that exploit contract call sequences to access unauthorized funds, and block gas limit attacks that consume block gas, hindering legitimate transactions.
+### 説明:
+Solidity のサービス拒否 (DoS) 攻撃は脆弱性を悪用して、ガス、CPU サイクル、ストレージなどのリソースを使い果たし、スマートコントラクトを使用不能にします。一般的なタイプには、悪意のあるアクターが過剰なガスを必要とするトランザクションを作成するガス枯渇攻撃、コントラクト呼び出しシーケンスを悪用して認可されていない資金にアクセスする再入攻撃、ブロックガスを消費して正当なトランザクションを妨害するブロックガス制限攻撃などがあります。
 
-### Example (Vulnerable contract):
+### 事例 (脆弱なコントラクト):
 ```
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
@@ -24,17 +24,17 @@ contract Solidity_DOS {
     }
 }
 ```
-### Impact:
-- A successful DoS attack can render the smart contract unresponsive, preventing users from interacting with it as intended. This can disrupt critical operations and services relying on the contract.
--  DoS attacks can lead to financial losses, especially in decentralized applications (dApps) where smart contracts manage funds or assets.
-- A DoS attack can tarnish the reputation of the smart contract and its associated platform. Users may lose trust in the platform's security and reliability, leading to a loss of users and business opportunities.
-  
-### Remediation:
-- Ensure smart contracts can handle consistent failures, such as asynchronous processing of potentially failing external calls, to maintain contract integrity and prevent unexpected behavior.
-- Be cautious when using `call` for external calls, loops, and traversals to avoid excessive gas consumption, which could lead to failed transactions or unexpected costs.
-- Avoid over-authorizing a single role in contract permissions. Instead, divide permissions reasonably and use multi-signature wallet management for roles with critical permissions to prevent permission loss due to private key compromise.
+### 影響:
+- DoS 攻撃が成功すると、スマートコントラクトが応答不能になり、ユーザーが意図したとおりにやり取りできなくなります。これによりコントラクトに依存している重要な操作やサービスが中断される可能性があります。
+- DoS 攻撃は、特にスマートコントラクトが資金や資産を管理する分散型アプリケーション (dApps) において、金銭的損失につながる可能性があります。
+- DoS 攻撃は、スマートコントラクトとそれに関連するプラットフォームの評判を傷つける可能性があります。ユーザーはプラットフォームのセキュリティと信頼性に対する信頼を失い、ユーザーとビジネス機会の喪失につながる可能性があります。
 
-### Example (Fixed version):
+### 対策:
+- スマートコントラクトが、失敗する可能性のある外部呼び出しの非同期処理など、失敗を一貫して処理できるようにし、コントラクトの完全性を維持し、予期しない動作を防止します。
+- 外部呼び出し、ループ、トラバーサルに `call` を使用する際は慎重に行い、トランザクションの失敗や予期しないコストにつながる可能性のある過剰なガス消費を避けます。
+- コントラクトのパーミッションで単一のロールに過剰な認可を与えないでください。代わりに、パーミッションを合理的に分割し、重要なパーミッションを持つロールにはマルチシグナルウォレットを使用して、秘密鍵の侵害によるパーミッション喪失を防止します。
+
+### 事例 (修正バージョン):
 ```
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
