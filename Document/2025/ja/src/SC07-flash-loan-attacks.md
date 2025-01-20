@@ -1,24 +1,24 @@
-## SC07:2025 - Flash Loan Attacks
+## SC07:2025 - フラッシュローン攻撃 (Flash Loan Attacks)
 
-### Description: 
-Flash loan attacks exploit the ability to borrow large sums of funds without collateral within a single transaction. These attacks leverage the atomic nature of blockchain transactions, where all operations must succeed or fail together. By combining flash loans with other vulnerabilities like oracle manipulation, reentrancy, or faulty logic, attackers can manipulate contract behavior and drain funds.
+### 説明: 
+フラッシュローン攻撃は単一のトランザクション内で担保なしに多額の資金を借り入れる能力を悪用します。これらの攻撃はブロックチェーントランザクションのアトミックな性質を利用するもので、すべての操作は同時に成功するか失敗しなければなりません。フラッシュローンをオラクル操作、再入可能性、欠陥のあるロジックなどの他の脆弱性と組み合わせることで、攻撃者はコントラクトの動作を操作し、資金を流出できます。
 
-#### Examples of Flash Loan Exploits:
-1. **Oracle Manipulation:** Using borrowed funds to skew price oracles, triggering under-collateralized liquidations.
-2. **Liquidity Pool Draining:** Leveraging flash loans to remove liquidity or exploit poorly designed AMM mechanics.
-3. **Arbitrage Exploits:** Exploiting price discrepancies across platforms by manipulating liquidity.
+#### フラッシュローン悪用の事例:
+1. **オラクル操作:** 借入金を使用して価格オラクルを歪め、担保不足の清算を誘発する。
+2. **流動性プールの枯渇:** フラッシュローンを活用して、流動性を排除したり、設計が不十分な AMM メカニズムを悪用します。
+3. **裁定取引の悪用:** 流動性を操作することで、プラットフォーム間の価格差を悪用します。
 
-### Impact:
-- **Loss of Funds:** Exploiters can drain protocol reserves or manipulate collateralized loans to steal assets.
-- **Market Disruptions:** Temporary price manipulation or liquidity depletion affecting users and platforms.
-- **Ecosystem Damage:** Loss of trust in protocols, resulting in reduced user adoption and financial impact.
+### 影響:
+- **資金の損失:** 悪用者はプロトコルの準備金を流出したり、担保付きローンを操作して資金を盗むことができます。
+- **市場の混乱:** 一時的な価格操作や流動性の枯渇により、ユーザーやプラットフォームに影響を及ぼします。
+- **エコシステムの損害:** プロトコルに対する信頼を損ない、ユーザー採用が減少し、経済的影響が生じます。
 
-### Remediation:
-- **Avoid reliance on flash loans in critical logic:** Restrict sensitive functions to operate only within validated and predictable conditions.
-- **Robust Oracle Design:** Use time-weighted average prices (TWAP) or decentralized oracles resistant to manipulation.
-- **Comprehensive Testing:** Include tests simulating flash loan scenarios and edge cases.
-- **Access Control:** Limit access to critical functions to prevent unauthorized or malicious transactions.
+### 対策:
+- **重要なロジックでフラッシュローンへの依存を避ける:** 機密性の高い機能が、検証済みで予測可能な条件内でのみ動作するように制限します。
+- **堅牢なオラクル設計:** 操作に耐性のある時間加重平均価格 (TWAP) または分散オラクルを使用します。
+- **包括的なテスト:** フラッシュローンのシナリオとエッジケースをシミュレートするテストを含めます。
+- **アクセス制御:** 重要な機能へのアクセスを制限して、不正なトランザクションや悪意のあるトランザクションを防ぎます。
 
-### Examples of Flash Loan Exploits:
-1. [UwUlend Hack](https://blog.solidityscan.com/uwulend-hack-analysis-77eb9181a717): A Comprehensive [Hack Analysis](https://blog.solidityscan.com/uwulend-hack-analysis-77eb9181a717)
-2. [Doughfina Hack](https://blog.solidityscan.com/doughfina-hack-analysis-685ed56adb19): A Comprehensive [Hack Analysis](https://blog.solidityscan.com/doughfina-hack-analysis-685ed56adb19)
+### フラッシュローン悪用の事例:
+1. [UwUlend ハック](https://blog.solidityscan.com/uwulend-hack-analysis-77eb9181a717): 包括的な [ハック分析](https://blog.solidityscan.com/uwulend-hack-analysis-77eb9181a717)
+2. [Doughfina ハック](https://blog.solidityscan.com/doughfina-hack-analysis-685ed56adb19): 包括的な [ハック分析](https://blog.solidityscan.com/doughfina-hack-analysis-685ed56adb19)
