@@ -9,7 +9,7 @@ This is the unofficial Japanese translation of the [OWASP Smart Contract Top 10]
 - Project Site - <https://owasp.org/www-project-smart-contract-top-10/>
 - Project Repository - <https://github.com/OWASP/www-project-smart-contract-top-10>
 
-# OWASP スマートコントラクト Top 10 日本語版
+## OWASP スマートコントラクト Top 10 日本語版
 
 * [リーダー](Document/leaders.md)
 
