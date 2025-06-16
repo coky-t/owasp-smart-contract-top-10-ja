@@ -2,12 +2,15 @@
 
 This is the unofficial Japanese translation of the [OWASP Smart Contract Top 10](https://github.com/OWASP/www-project-smart-contract-top-10).
 
+- Document Site - <https://coky-t.gitbook.io/owasp-smart-contract-top-10-ja/>
+- Document Repository - <https://github.com/coky-t/owasp-smart-contract-top-10-ja>
+
 ### Originator
 
 - SCS Official Site - <https://scs.owasp.org/>
-- SCS Document Site - <https://scs.owasp.org/sctop10/>
 - Project Site - <https://owasp.org/www-project-smart-contract-top-10/>
 - Project Repository - <https://github.com/OWASP/www-project-smart-contract-top-10>
+- Document Site - <https://scs.owasp.org/sctop10/>
 
 ## OWASP スマートコントラクト Top 10 日本語版
 
@@ -48,3 +51,6 @@ This is the unofficial Japanese translation of the [OWASP Smart Contract Top 10]
 ## Translator (Japanese)
 
 [Koki Takeyama](https://github.com/coky-t)
+
+- Document Site - <https://coky-t.gitbook.io/owasp-docs-ja/>
+- Document Repository - <https://github.com/coky-t/owasp-docs-ja>
