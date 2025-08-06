@@ -4,19 +4,19 @@
 チェックされていない外部呼び出しとは、コントラクトが別のコントラクトやアドレスへの外部呼び出しを、その呼び出しの結果を適切にチェックせずに行うセキュリティ上の欠陥を指します。Ethereum では、コントラクトが別のコントラクトを呼び出すと、呼び出されたコントラクトは例外をスローせずにサイレントに失敗する可能性があります。呼び出し元のコントラクトが戻り値をチェックしない場合、呼び出しが成功していなくても、呼び出しが成功したと誤って判断するかもしれません。これにより、コントラクトの状態に不整合が生じ、攻撃者が悪用できる脆弱性が発生する可能性があります。
 
 ### 事例 (脆弱なコントラクト):
-```
+```solidity
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.4.24;
+pragma solidity ^0.8.0;
 
 contract Solidity_UncheckedExternalCall {
     address public owner;
 
-    constructor() public {
+    constructor() {
         owner = msg.sender;
     }
 
-    function forward(address callee, bytes _data) public {
-        require(callee.delegatecall(_data));
+    function forward(address callee, bytes memory _data) public {
+        callee.delegatecall(_data);
     }
 }
 ```
@@ -28,11 +28,11 @@ contract Solidity_UncheckedExternalCall {
 - send() や call() 関数の戻り値を常にチェックして、false を返した場合に適切な処理が行われるようにします。
 
 ### 事例 (修正バージョン):
-```
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0; 
 
-contract Solidity_UncheckedExternalCall {
+contract Solidity_CheckedExternalCall {
     address public owner;
 
     constructor() {
@@ -46,6 +46,14 @@ contract Solidity_UncheckedExternalCall {
     }
 }
 ```
+
+### 注意点
+
+上記の二つのコントラクトはチェックされていない戻り値以外にも弱点を含みます。
+
+- 認証は呼び出し先に委譲されます。呼び出されるコントラクトのコードは、たとえば `owner` と比較するなど、`msg.sender` を制限する場合も、そうでない場合もあります。通常、関数 `forward` は何らかの認証を行う必要があります。
+- `callee` はユーザーが指定したアドレスです。これは、このコントラクトのコンテキスト内で任意のコードが実行され、たとえば `owner` を変更する可能性があることを意味します。`forward` は認証を行わないため、これは特に問題となります。
+- アドレス `callee` がコントラクトであるかどうかはチェックされません。`callee` はコードのないアドレスである場合、`delegatecall` は成功するため、これは認識されません。通常、関数 `forward` は、呼び出されたコントラクトのコードサイズがゼロより大きいことを検証するなど、基本的なチェックを行う必要があります。
 
 ### チェックされていない外部呼び出しの被害を受けたスマートコントラクトの事例:
 1. [Punk Protocol ハック](https://github.com/PunkFinance/punk.protocol/blob/master/contracts/models/CompoundModel.sol) : 包括的な [ハック分析](https://blog.solidityscan.com/security-issues-with-delegate-calls-4ae64d775b76)
