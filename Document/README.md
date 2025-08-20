@@ -2,6 +2,13 @@
 
 # [OWASP Smart Contract Top 10](https://owasp.org/www-project-smart-contract-top-10/)
 
+> ## OWASP Smart Contract Security Slack に参加する
+> [![Slack](https://img.shields.io/badge/slack-join%20chat-611f69?logo=slack&logoColor=white)](https://owasp.slack.com/archives/C07MNDE6TPZ)
+> 
+> _Discussions and Support_
+
+-----
+
 ## スマートコントラクト Top 10 について
 
 OWASP スマートコントラクト Top 10 (2025) は、Web3 開発者とセキュリティチームにスマートコントラクトで発見された上位 10 の脆弱性についての洞察を提供する標準的な案内ドキュメントです。
