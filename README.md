@@ -2,6 +2,8 @@
 
 This is the unofficial Japanese translation of the [OWASP Smart Contract Top 10](https://github.com/OWASP/www-project-smart-contract-top-10).
 
+**!!! Work In Progress !!!**
+
 - Document Site - <https://coky-t.gitbook.io/owasp-smart-contract-top-10-ja/>
 - Document Repository - <https://github.com/coky-t/owasp-smart-contract-top-10-ja>
 
@@ -16,9 +18,23 @@ This is the unofficial Japanese translation of the [OWASP Smart Contract Top 10]
 
 * [リーダー](Document/leaders.md)
 
+## OWASP スマートコントラクト Top 10 2026 日本語版
+
+* [OWASP スマートコントラクト Top 10 2026](Document/index.md)
+* SC01:2026 - [アクセス制御の脆弱性 (Access Control Vulnerabilities)](Document/2026/ja/src/SC01-access-control-vulnerabilities.md)
+* SC02:2026 - [ビジネスロジックの脆弱性 (Business Logic Vulnerabilities)](Document/2026/ja/src/SC02-business-logic-vulnerabilities.md)
+* SC03:2026 - [価格オラクル操作 (Price Oracle Manipulation)](Document/2026/ja/src/SC03-price-oracle-manipulation.md)
+* SC04:2026 - [フラッシュローンを利用した攻撃 (Flash Loan–Facilitated Attacks)](Document/2026/ja/src/SC04-flash-loan-facilitated-attacks.md)
+* SC05:2026 - [入力バリデーションの欠如 (Lack of Input Validation)](Document/2026/ja/src/SC05-lack-of-input-validation.md)
+* SC06:2026 - [チェックされていない外部呼び出し (Unchecked External Calls)](Document/2026/ja/src/SC06-unchecked-external-calls.md)
+* SC07:2026 - [算術エラー (Arithmetic Errors)](Document/2026/ja/src/SC07-arithmetic-errors.md)
+* SC08:2026 - [再入攻撃 (Reentrancy Attacks)](Document/2026/ja/src/SC08-reentrancy-attacks.md)
+* SC09:2026 - [整数オーバーフローとアンダーフロー (Integer Overflow and Underflow)](Document/2026/ja/src/SC09-integer-overflow-underflow.md)
+* SC10:2026 - [プロキシとアップグレード可能性の脆弱性 (Proxy & Upgradeability Vulnerabilities)](Document/2026/ja/src/SC10-proxy-and-upgradeability-vulnerabilities.md)
+
 ## OWASP スマートコントラクト Top 10 2025 日本語版
 
-* [OWASP スマートコントラクト Top 10 2025](Document/index.md)
+* [OWASP スマートコントラクト Top 10 2025](Document/index.2025.md)
 * SC01:2025 - [不適切なアクセス制御 (Improper Access Control)](Document/2025/ja/src/SC01-access-control.md)
 * SC02:2025 - [価格オラクル操作 (Price Oracle Manipulation)](Document/2025/ja/src/SC02-price-oracle-manipulation.md)
 * SC03:2025 - [ロジックエラー (Logic Errors)](Document/2025/ja/src/SC03-logic-errors.md)
