@@ -14,29 +14,29 @@ pitch: Welcome to the OWASP Top Ten for Smart Contracts
 
 ## スマートコントラクト Top 10 について
 
-The **OWASP Smart Contract Top 10 : 2026** is a standard awareness document that aims to provide Web3 developers and security teams with insights into the top 10 vulnerabilities found in smart contracts. It is a **sub‑project of the broader [OWASP Smart Contract Security (OWASP SCS) initiative](https://scs.owasp.org/)**.
+**OWASP スマートコントラクト Top 10: 2026** は Web3 開発者とセキュリティチームに、スマートコントラクトで見つかった上位 10 の脆弱性についての洞察を提供することを目的とした、標準認識ドキュメントです。これは **より広範な [OWASP Smart Contract Security (OWASP SCS) イニチアチブ](https://scs.owasp.org/) のサブプロジェクト** です。
 
-It serves as a reference to ensure that smart contracts are secured against the most critical weaknesses exploited or discovered in recent years. The **Smart Contract Top 10** can be used alongside other OWASP SCS projects to ensure comprehensive risk coverage:
+これは近年悪用または発見された最も重大な弱点に対してスマートコントラクトが保護されていることを確認するためのリファレンスとして役立ちます。**スマートコントラクト Top 10** は他の OWASP SCS プロジェクトと併用することで包括的なリスクカバレッジを確保できます。
 
 - **OWASP SC Top 10 live site (2026): [https://scs.owasp.org/sctop10/](https://scs.owasp.org/sctop10/)** 
 - **OWASP SC Weakness Enumeration (SCWE):** https://scs.owasp.org/SCWE/  
 - **OWASP SCS Checklist:** https://scs.owasp.org/checklists/  
 
-Use the Top 10 for:
-- **Awareness**: Understand the most common and critical vulnerabilities affecting smart contracts.
-- **Prevention**: Implement best practices to safeguard against these known issues.
-- **Standard Compliance**: A reference to ensure secure development and assessment of smart contracts.
+Top 10 は以下の用途に使用できます。
+- **認識**: スマートコントラクトに影響を及ぼす最も一般的で重大な脆弱性を理解します。
+- **予防**: これらの既知の問題に対して保護するためのベストプラクティスを実装します。
+- **標準コンプライアンス**: スマートコントラクトの安全な開発と評価を確保するために参照します。
 
-> Note: The current **2026** Top 10 is **forward-looking**: its ordering and category definitions are derived from **security incidents and survey data collected during 2025**, and then used to forecast which risks are expected to be most significant in the upcoming year. In other words, 2025 breach and vulnerability data provides the empirical foundation, while the 2026 list reflects how those observations are projected into the near future.  
+> 注: 現在の **2026** Top 10 は **将来予測** です。その順位付けとカテゴリ定義は **2025 年に収集されたセキュリティインシデントと調査データ** に基づいており、翌年に最も重大になると予想されるリスクを予測するために使用されます。言い換えると、2025 年の侵害および脆弱性データは実証的な基盤を提供し、2026 年のリストはそれらの観察結果が近い将来にどのように予想されるかを反映しています。
 >  
-> This ranking is intended to raise awareness among security researchers, auditors, developers, protocol owners, and the broader industry about the 10 most commonly occurring and impactful smart contract risks.
+> このランキングは、最も一般的に発生して影響のある 10 のスマートコントラクトリスクについて、セキュリティ研究者、監査担当者、開発者、プロトコル所有者、および業界全体での意識を高めることを目的としています。
 
 ## 変更内容 (2025-2026)
 
 ![OWASP 2025 to 2026 Changes](assets/images/Top10mapping2025-2026.png)
 
 
-### 2026 Top 10 (Forward-Looking)
+### 2026 Top 10 (将来予測)
 
 * SC01:2026 - [アクセス制御の脆弱性 (Access Control Vulnerabilities)](2026/ja/src/SC01-access-control-vulnerabilities.md)
 * SC02:2026 - [ビジネスロジックの脆弱性 (Business Logic Vulnerabilities)](2026/ja/src/SC02-business-logic-vulnerabilities.md)
