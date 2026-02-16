@@ -18,10 +18,10 @@ pitch: Welcome to the OWASP Top Ten for Smart Contracts
 
 これは近年悪用または発見された最も重大な弱点に対してスマートコントラクトが保護されていることを確認するためのリファレンスとして役立ちます。**スマートコントラクト Top 10** は他の OWASP SCS プロジェクトと併用することで包括的なリスクカバレッジを確保できます。
 
-- **OWASP SC Top 10 live site (2026):** [https://scs.owasp.org/sctop10/](https://scs.owasp.org/sctop10/)
 - **OWASP SC Weakness Enumeration (SCWE):** [https://scs.owasp.org/SCWE/](https://scs.owasp.org/SCWE/)
 - **OWASP SCS Checklist:** [https://scs.owasp.org/checklists/](https://scs.owasp.org/checklists/)
 - **OWASP Top 15: Web3 Attack Vectors (Beyond Smart Contracts)** [https://scs.owasp.org/sctop10/Web3-Attack-Vectors-Top15/](https://scs.owasp.org/sctop10/Web3-Attack-Vectors-Top15/)
+- **OWASP SC Top 10 Live Site (2026):** [https://scs.owasp.org/sctop10/](https://scs.owasp.org/sctop10/)
 
 Top 10 は以下の用途に使用できます。
 - **認識**: スマートコントラクトに影響を及ぼす最も一般的で重大な脆弱性を理解します。
