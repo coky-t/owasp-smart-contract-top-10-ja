@@ -52,16 +52,16 @@ Top 10 は以下の用途に使用できます。
 
 | タイトル | 説明 |
 | -- | -- |
-| SC01 - Access Control Vulnerabilities | Access control flaws allow unauthorized users or roles to invoke privileged functions or modify critical state, often leading to full protocol compromise when admin, governance, or upgrade paths are exposed. |
-| SC02 - Business Logic Vulnerabilities | Design-level flaws in lending, AMM, reward, or governance logic that break intended economic or functional rules, enabling attackers to extract value even when low-level checks appear correct. |
-| SC03 - Price Oracle Manipulation | Weak oracles and unsafe price integrations that let attackers skew reference prices, enabling under-collateralized borrowing, unfair liquidations, and mispriced swaps as part of larger exploit chains. |
-| SC04 - Flash Loan–Facilitated Attacks | Attacks that use large, uncollateralized flash loans to magnify small bugs (in logic, pricing, or arithmetic) into large drains, by executing complex multi-step sequences in a single transaction. |
-| SC05 - Lack of Input Validation | Missing or weak validation of user, admin, or cross-chain inputs that allows unsafe parameters to reach core logic, corrupting state, breaking assumptions, or enabling direct fund loss. |
-| SC06 - Unchecked External Calls | Unsafe interactions with external contracts or addresses where failures, reverts, or callbacks are not safely handled, often enabling reentrancy or inconsistent state. |
-| SC07 - Arithmetic Errors | Subtle bugs in integer math, scaling, and rounding; especially in share, interest, and AMM calculations; that can be repeatedly exploited to cause precision loss, or siphon value, particularly when paired with flash loans. |
-| SC08 - Reentrancy Attacks | Situations where external calls can re-enter vulnerable functions before state is fully updated, allowing repeated withdrawals or state changes from outdated views of contract state. |
-| SC09 - Integer Overflow and Underflow | Dangerous arithmetic on platforms or code paths without robust overflow checks, leading to wrapped values, broken invariants, and potential drains of liquidity or mis-accounting. |
-| SC10 - Proxy & Upgradeability Vulnerabilities | Misconfigured or weakly governed proxy, initialization, and upgrade mechanisms that let attackers seize control of implementations or reinitialize critical state. |
+| SC01 - アクセス制御の脆弱性 (Access Control Vulnerabilities) | アクセス制御の欠陥は、認可されていないユーザーやロールが特権機能を呼び出したり重要な状態を変更し、管理、ガバナンス、アップグレードパスがさらされると、完全なプロトコル侵害につながる可能性があります。 |
+| SC02 - ビジネスロジックの脆弱性 (Business Logic Vulnerabilities) | 貸与、AMM、報酬、ガバナンスロジックでの設計レベルの欠陥は、意図した経済的または機能的ルールを破り、低レベルのチェックが正しいように見えたとしても攻撃者が価値を引き出すことが可能になります。 |
+| SC03 - 価格オラクル操作 (Price Oracle Manipulation) | 脆弱なオラクルと安全でない価格統合は、攻撃者が参照価格を歪め、より大きなエクスプロイトチェーンの一部として、担保不足の借入、不公平な清算、誤った価格のスワップを可能にします。 |
+| SC04 - フラッシュローンを利用した攻撃 (Flash Loan–Facilitated Attacks) | 大規模な無担保フラッシュローンを使用して、複雑な複数ステップのシーケンスを単一のトランザクションで実行することで、小さなバグ (ロジック、価格設定、計算での) を大規模な流出に拡大する攻撃です。 |
+| SC05 - 入力バリデーションの欠如 (Lack of Input Validation) | ユーザー、管理者、またはクロスチェーン入力のバリデーションが欠落または弱く、安全でないパラメータがコアロジックに到達し、状態が破損したり、想定が崩れたり、直接的な資金損失になる可能性があります。 |
+| SC06 - チェックされていない外部呼び出し (Unchecked External Calls) | 外部コントラクトまたはアドレスとの安全でないやり取りです。障害、リバート、コールバックが安全に処理されず、再入可能性または不整合な状態になることがよくあります。 |
+| SC07 - 算術エラー (Arithmetic Errors) | 整数計算、スケーリング、丸めでの精緻なバグです。特に、株式、利息、AMM の計算において、フラッシュローンと組み合わせた場合に繰り返し悪用され、精度の低下や値の吸い上げをもたらす可能性があります。 |
+| SC08 - 再入攻撃 (Reentrancy Attacks) | 状態が完全に更新される前に外部呼び出しが脆弱な関数に再度入ることができる状況であり、コントラクト状態の古いビューから繰り返し引き落としまたは状態変更できます。 |
+| SC09 - 整数オーバーフローとアンダーフロー (Integer Overflow and Underflow) | 堅牢なオーバーフローチェックのないプラットフォームまたはコードパスでの危険な演算であり、ラップされた値、不変条件の破壊、潜在的な流動性の流出や計算誤りにつながります。 |
+| SC10 - プロキシとアップグレード可能性の脆弱性 (Proxy & Upgradeability Vulnerabilities) | プロキシ、初期化、アップグレードのメカニズムの構成が誤っていたり管理が不十分であり、攻撃者が実装の制御を奪ったり重要な状態を再初期化します。 |
 
 
 ## データソース
