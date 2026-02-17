@@ -73,14 +73,14 @@ OWASP スマートコントラクト Top 10 脆弱性を特定して検証する
 Web3HackHub は 2011 年以降の侵害を記録しており、進化する攻撃方法、巧妙化するエクスプロイト、各インシデントから得られた教訓を分析できます。
 ![SolidityScan Web3HackHub 2025](assets/images/solidityscan-web3hackhub2025.png)
 
-The complete **methodology, ranking logic, and external data sources** for the 2026 Top 10 are documented on the OWASP SCS site:
+2026 年の Top 10 の完全な **方法論、ランキングロジック、外部データソース** は OWASP SCS サイトに記載されています。
 
 - **Methodology & Data for the 2026 Top 10: https://scs.owasp.org/sctop10/data-sources/**
 
-On that page you’ll find:
-- How the practitioner survey is designed and how category rankings are aggregated.  
-- How 2025 smart‑contract incident data (SolidityScan Web3HackHub, SlowMist, BlockSec, DeFiHackLabs, etc.) is mapped into OWASP categories.  
-- Category‑wise loss totals, risk metrics, and the justification for the final ordering.
+このページには以下があります。
+- 実務者調査の設計方法とカテゴリランキングの集計方法。
+- 2025 年のスマートコントラクトインシデントデータ (SolidityScan Web3HackHub, SlowMist, BlockSec, DeFiHackLabs など) を OWASP カテゴリにマップする方法。
+- カテゴリ別の損失総額、リスク指標、最終的な順位付けの根拠。
 
 ## ライセンス
 The OWASP Smart Contract Top 10 (2026) is [licensed](https://github.com/OWASP/www-project-smart-contract-top-10/blob/main/LICENSE.md) under the [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), the Creative Commons Attribution-ShareAlike 4.0 license. Some rights reserved.
