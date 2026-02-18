@@ -2,22 +2,22 @@
 
 #### 説明
 
-Improper access control describes any situation where a smart contract does not rigorously enforce *who* may invoke privileged behavior, *under which* conditions, and *with which* parameters. In modern DeFi systems this goes far beyond a single `onlyOwner` modifier. Governance contracts, multisigs, guardians, proxy admins, and cross‑chain routers all participate in enforcing who can mint or burn tokens, move reserves, reconfigure pools, pause or unpause core logic, or upgrade implementations. If any of these trust boundaries are weak or inconsistently applied, an attacker may be able to impersonate a privileged actor or cause the system to treat an untrusted address as if it were authorized.
+不適切なアクセス制御は、*誰が*、*どのような* 条件 *下で*、*どのような* パラメータ *を用いて*、特権的な動作を実行できるかを厳格に強制していない状況を指します。現代の DeFi システムでは、これは単一の `onlyOwner` 修飾子をはるかに超えています。ガバナンスコントラクト、マルチシグ、ガーディアン、プロキシ管理者、クロスチェーンルーターはすべて、トークンの発行や破棄、リザーブの移動、プールの再構成、コアロジックの一時停止や再開、実装のアップグレードをできる人物の強制に関与しています。これらの信頼境界のいずれかが脆弱であったり一貫性なく適用されていると、攻撃者は特権を持つアクターになりすましたり、信頼できないアドレスを認可済みであるかのようにシステムが処理するようにできる可能性があります。
 
-Few areas to focus on: 
-- **Ownership / admin controls** (e.g., `onlyOwner`, governor, multisig)
-- **Upgrade and pause mechanisms** (proxy admins, guardians)
-- **Fund movement and accounting** (mint/burn, pool reconfiguration, fee routing)
-- **Cross-chain or cross-module trust boundaries** (bridges, vault routers, L2 messengers)
+注目する領域は以下のとおりです。
+- **所有権 / 管理者制御** (例: `onlyOwner`、ガバナー、マルチシグ)
+- **アップグレードと一時停止のメカニズム** (プロキシ管理者、ガーディアン)
+- **資金の移動と会計** (発行/破棄、プール再構成、料金ルーティング)
+- **クロスチェーンまたはクロスモジュールの信頼境界** (ブリッジ、Vault ルーター、L2 メッセンジャー)
 
-Attackers exploit:
+攻撃者は以下を悪用します。
 
-- **Missing modifiers or role checks** on sensitive functions
-- **Incorrect assumption of `msg.sender`** (e.g., via delegate calls or meta-transactions)
-- **Unprotected initialization / re-initialization** of contracts or proxies
-- **Privilege confusion** across modules (e.g., off-by-one checks, mistaken trusted addresses)
+- 機密性の高い関数での **修飾子やロールチェックの欠落**
+- **`msg.sender` の誤った想定** (例: デリゲート呼び出しやメタトランザクション経由)
+- コントラクトやプロキシの **保護されていない初期化 / 再初期化**
+- モジュール間の **権限の混乱** (例: off-by-one チェック、信頼済みアドレスの誤り)
 
-When combined with other issues (e.g., logic bugs, upgradeability flaws), access control failures can lead to full protocol compromise.
+他の問題 (ロジックバグ、アップグレード可能性の欠陥など) と組み合わせると、アクセス制御の不良はプロトコル全体の侵害につながる可能性があります。
 
 ### 事例 (脆弱なコントラクト)
 
