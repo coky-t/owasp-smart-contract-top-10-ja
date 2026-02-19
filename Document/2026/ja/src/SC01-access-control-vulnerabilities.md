@@ -48,10 +48,10 @@ contract LiquidityPoolVulnerable {
 }
 ```
 
-**Issues:**
+**問題点:**
 
-- `transferOwnership` is callable by anyone, allowing arbitrary takeover.
-- `emergencyWithdraw` lacks any access control, effectively granting any caller the ability to drain the contract’s balance.
+- `transferOwnership` は誰でも呼び出し可能であり、任意の乗っ取りが可能となります。
+- `emergencyWithdraw` はアクセス制御を欠いており、事実上、任意の呼び出し元にコントラクトの残高を空にする能力を付与しています。
 
 ### 事例 (ロールベースのアクセス制御での修正バージョン)
 
@@ -98,11 +98,11 @@ contract LiquidityPoolSecure is AccessControl {
 }
 ```
 
-**Security Improvements:**
+**セキュリティの改善:**
 
-- Explicit **RBAC**: `DEFAULT_ADMIN_ROLE`, `GOVERNANCE_ROLE`, and `GUARDIAN_ROLE`.
-- Only trusted roles can reconfigure privileges or perform emergency withdrawals.
-- Clear separation between configuration (governance) and emergency response (guardian).
+- 明示的な **RBAC**: `DEFAULT_ADMIN_ROLE`, `GOVERNANCE_ROLE`, `GUARDIAN_ROLE`
+- 信頼できるロールのみが権限を再構成したり緊急引き落としを実行できます。
+- 構成 (ガバナンス) と緊急対応 (ガーディアン) の間を明確に分離しています。
 
 ### 2025 ケーススタディ
 
