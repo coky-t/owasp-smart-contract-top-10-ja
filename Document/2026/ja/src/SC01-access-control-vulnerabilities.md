@@ -106,27 +106,27 @@ contract LiquidityPoolSecure is AccessControl {
 
 ### 2025 ケーススタディ
 
-- **Balancer V2 (November 2025, ~$128M loss)**  
-  A complex multi-chain pool ecosystem suffered from flawed access control in pool configuration and ownership assumptions. The `manageUserBalance` function had improper access controls—it checked `msg.sender` against a user-provided `op.sender` value, which attackers could set to match `msg.sender` and bypass protections, allowing them to masquerade as pool controllers and execute unauthorized WITHDRAW_INTERNAL operations. This was chained with a rounding error in `_upscaleArray` to drain liquidity.  
-  Key lessons:
-  - Critical pool operations must be **guarded by explicit role checks** and on-chain governance.
-  - Any cross-chain or cross-module "owner" concept must be **verified on-chain**, not assumed from message origin.  
+- **Balancer V2 (2025 年 11 月, 約 1 億 2800 万ドルの損失)**  
+  複雑なマルチチェーンプールエコシステムはプール設定と所有権の想定でのアクセス制御の欠陥に悩まされていました。`manageUserBalance` 関数には不適切なアクセス制御がありました。`msg.sender` をユーザーが提供した `op.sender` 値と比較しており、攻撃者は `msg.sender` と一致するように設定して保護をバイパスし、プールコントローラになりすまして不正な WITHDRAW_INTERNAL 操作を実行しました。これは `_upscaleArray` の丸めエラーと連鎖し、流動性を枯渇しました。
+  主な教訓:
+  - 重要なプール操作は **明示的なロールチェック** とオンチェーンガバナンス **によって保護される** 必要があります。
+  - クロスチェーンまたはクロスモジュールの「所有者 (owner)」の概念は、メッセージ発信元から推測するのではなく、**オンチェーンで検証される** 必要があります。
   - [https://www.openzeppelin.com/news/understanding-the-balancer-v2-exploit](https://www.openzeppelin.com/news/understanding-the-balancer-v2-exploit)
   - [https://research.checkpoint.com/2025/how-an-attacker-drained-128m-from-balancer-through-rounding-error-exploitation/](https://research.checkpoint.com/2025/how-an-attacker-drained-128m-from-balancer-through-rounding-error-exploitation/)
   - [https://www.halborn.com/blog/post/explained-the-balancer-hack-november-2025](https://www.halborn.com/blog/post/explained-the-balancer-hack-november-2025)
 
-- **Zoth (March 2025, $8.4M loss)**  
-  Improper privilege checks around core accounting and administrative functions allowed attackers to perform unauthorized fund movements. The attacker compromised Zoth's deployer wallet (single EOA controlling admin) and performed a malicious upgrade to the USD0PPSubVaultUpgradeable proxy, deploying a malicious implementation to withdraw $8.4M. The protocol relied on brittle assumptions—a single private key controlling critical admin functions.  
-  Key lessons:
-  - Avoid **implicit trust** in addresses (e.g., "deployer is trusted forever").
-  - Use **role-based access control (RBAC)** with clear separation between operational, emergency, and upgrade roles.  
+- **Zoth (2025 年 3 月, 840 万ドルの損失)**  
+  中核となる会計および管理機能における不適切な権限チェックにより、攻撃者が不正な資金移動を実行することを可能にしました。攻撃者は Zoth のデプロイヤウォレット (単一の EOA が管理者を制御) を侵害し、USD0PPSubVaultUpgradeable プロキシに悪意のあるアップグレードを実行し、悪意のある実装をデプロイして 840 万ドルを引き落としました。このプロトコルは重要な管理機能を単一の秘密鍵で制御するという脆弱な前提に依存していました。
+  主な教訓:
+  - アドレスに対する **暗黙の信頼** を避けます (例:「デプロイヤは永久に信頼される」)。
+  - 運用、緊急、アップグレードのロールを明確に分離した **ロールベースアクセス制御 (RBAC)** を使用します。
   - [https://blog.solidityscan.com/zoth-hack-analysis-80ba3ac5076b](https://blog.solidityscan.com/zoth-hack-analysis-80ba3ac5076b)
   - [https://www.halborn.com/blog/post/explained-the-zoth-hack-march-2025](https://www.halborn.com/blog/post/explained-the-zoth-hack-march-2025)
 
-- **Cork Protocol (May 2025, $11–12M loss)**  
-  The Uniswap V4 hook callbacks (e.g., `beforeSwap`) lacked proper access control—they did not validate that the caller was the trusted PoolManager. The `beforeSwap` function had no `onlyPoolManager` modifier. Attackers called the hook directly with arbitrary parameters, fooling the protocol into crediting them with derivative tokens. The root cause was **missing caller validation** on hook entry points.  
-  Key lessons:
-  - Hook and callback entry points must **validate the caller** (e.g., onlyPoolManager) explicitly on-chain.  
+- **Cork Protocol (2025 年 5 月, 1100 万～ 1200 万ドルの損失)**  
+  Uniswap V4 のフックコールバック (例: `beforeSwap`) は適切なアクセス制御を欠いていました。呼び出し元が信頼できる PoolManager であることを検証していなかったのです。`beforeSwap` 関数は `onlyPoolManager` 修飾子を持ちません。攻撃者は任意のパラメータでフックを直接呼び出し、プロトコルを欺いて導出トークンを付与しています。根本原因はフックエントリポイントの **呼び出し元バリデーションの欠如** でした。
+  主な教訓:
+  - フックとコールバックのエントリポイントはオンチェーンで明示的に **呼び出し元を検証する** (例: onlyPoolManager) 必要があります。
   - [https://dedaub.com/blog/the-11m-cork-protocol-hack-a-critical-lesson-in-uniswap-v4-hook-security/](https://dedaub.com/blog/the-11m-cork-protocol-hack-a-critical-lesson-in-uniswap-v4-hook-security/)
   - [https://www.coindesk.com/business/2025/05/28/a16z-backed-cork-protocol-suffers-usd12m-smart-contract-exploit](https://www.coindesk.com/business/2025/05/28/a16z-backed-cork-protocol-suffers-usd12m-smart-contract-exploit)
   - [https://www.halborn.com/blog/post/explained-the-cork-protocol-hack-may-2025](https://www.halborn.com/blog/post/explained-the-cork-protocol-hack-may-2025)
