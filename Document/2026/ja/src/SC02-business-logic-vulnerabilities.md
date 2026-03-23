@@ -2,24 +2,24 @@
 
 #### 説明
 
-Business logic vulnerabilities describe any situation where a smart contract’s *intended* economic or functional behavior can be subverted even though individual low-level checks (e.g., type safety, reentrancy guards, access control) are correct. These are **design flaws** in how the system’s rules, incentives, state transitions, and invariants are modeled on-chain. Unlike low-level bugs (overflow, reentrancy), business logic flaws arise when the rules themselves are unsafe—the code “does what it says”, but what it says permits exploitable outcomes.
+ビジネスロジックの脆弱性は、個々の低レベルチェック (型安全性、再入防止、アクセス制御など) が正しいにもかかわらず、スマートコントラクトの *意図した* 経済的または機能的な動作が損なわれる可能性のあるあらゆる状況を指します。これらは、システムのルール、インセンティブ、状態遷移、不変条件がオンチェーンでどのようにモデル化されているかにおける **設計上の欠陥** です。低レベルバグ (オーバーフロー、再入可能性) とは異なり、ビジネスロジックの欠陥はルール自体が安全でない場合に発生します。コードは「指示どおりに動作する」ものの、それは悪用可能な結果を許すことになります。
 
-This applies across all smart contract domains: DeFi (lending, AMMs, vaults, yield strategies), NFTs (minting logic, royalties, marketplace mechanics), DAOs (voting, delegation, proposal execution), bridges (burn/mint asymmetry, liquidity rules), gaming (reward distribution, fairness), and cross-chain/L2 systems where multi-hop state transitions create emergent vulnerabilities.
+これは、DeFi (融資、AMM、Vault、利回り戦略)、NFT (発行ロジック、ロイヤリティ、マーケットプレイス機構)、DAO (投票、委譲、提案実行)、ブリッジ (burn/mint の非対称性、流動性ルール)、ゲーミング (報酬分配、公平性)、マルチホップの状態遷移が新たな脆弱性を生み出すクロスチェーン/L2 システムなど、すべてのスマートコントラクトの領域にわたって適用します。
 
-Few areas to focus on:
+注目する領域は以下のとおりです。
 
-- **Invariant violations** across modules (e.g., vault ↔ strategy ↔ gauge, collateral ↔ debt, supply ↔ backing)
-- **Reward and fee logic** (double-counting, under/over-accrual, wrong beneficiary)
-- **Eligibility and limit checks** that are bypassable or inconsistently enforced (borrowing caps, mint limits, liquidation thresholds)
-- **Path-dependent state machines** that allow manipulative action sequences to reach impossible or inconsistent states
-- **Cross-module and cross-chain assumptions** (e.g., bridge liquidity, L2 finality, message ordering)
+- モジュール間における **不変条件違反** (例: vault ↔ strategy ↔ gauge, collateral ↔ debt, supply ↔ backing)
+- **報酬および手数料のロジック** (double-counting, under/over-accrual, wrong beneficiary)
+- バイパス可能または一貫性のない適用された **適格性および制限のチェック** (借入上限、発行制限、換金閾値)
+- 操作的なアクションシーケンスが不可能または一貫性のない状態に到達できる **パス依存ステートマシン**
+- **モジュール間およびチェーン間の前提条件** (例: ブリッジの流動性、L2 ファイナリティ、メッセージの順序付け)
 
-Attackers exploit:
+攻撃者は以下のように悪用します。
 
-- **Arbitrage between inconsistent accounting** (vault vs. strategy, internal vs. external balance)
-- **Order-of-operations edge cases** (deposit/withdraw/claim sequences that break invariants)
-- **Eligibility bypasses** (e.g., claiming rewards without stake, liquidating healthy positions)
-- **Parameter manipulation** (interest curves, fees, collateral factors) that create economically irrational states
+- **一貫性のない会計処理間での裁定取引** (vault 対 strategy、内部残高と外部残高)
+- **操作順序のエッジケース** (不変条件を破る預け入れ/引き落とし/請求シーケンス)
+- **適格性のバイパス** (例: 持ち分なしでの報酬の請求、健全なポジションの債務弁済)
+- 経済的に不合理な状態を生み出す **パラメータ操作** (金利曲線、手数料、担保係数)
 
 ### 事例 (脆弱な融資ロジック)
 
