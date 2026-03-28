@@ -47,10 +47,10 @@ contract VulnerableLending {
 }
 ```
 
-**Issues:**
+**問題点:**
 
-- `allowed` is computed from the *requested borrow amount*, not the user’s collateral balance.
-- The check `allowed >= amount` always holds for `collateralFactorBps >= 10_000`, and is otherwise simply a tautology when misused like this, failing to enforce any economic invariant.
+- `allowed` は、ユーザーの担保残高ではなく、*借入希望額* から計算されています。
+- `allowed >= amount` のチェックは `collateralFactorBps >= 10_000` では常に成り立ち、このように誤用されると単なる恒真式となり、経済的な不変条件を強制できません。
 
 ### 事例 (修正: 不変式ベースの借用ロジック)
 
@@ -93,11 +93,11 @@ contract SaferLending {
 }
 ```
 
-**Security Improvements:**
+**セキュリティの改善:**
 
-- Borrow limits derive from **total collateral**, not just requested amounts.
-- Economic invariant: `debt[user] <= maxBorrow(user)` is enforced on every borrow.
-- Price oracle is explicitly integrated (and can be hardened per SC03).
+- 借入限度額は、希望額だけでなく、**担保総額** から導き出しています。
+- 経済不変条件: `debt[user] <= maxBorrow(user)` はすべての借入に適用されます。
+- 価格オラクルは明示的に統合されています (そして SC03 で堅牢化できます)。
 
 ### 2025 ケーススタディ
 
