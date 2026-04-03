@@ -101,21 +101,21 @@ contract SaferLending {
 
 ### 2025 ケーススタディ
 
-- **Abracadabra (March 2025, $12.9M loss)**  
-  Flawed collateral accounting in GMX V2 CauldronV4 contracts. Attackers used a three-stage method: (1) made a deposit into GMX designed to fail, leaving tokens stuck in OrderAgent; (2) self-liquidated their position so the contract erased the position but failed to remove the associated order and collateral; (3) used the "ghost" collateral to borrow 6,260 ETH (~$12.9M). Economic invariants (collateral ↔ debt) were broken by the deposit-fail and liquidation path.  
-  Key lessons:
-  - All economic invariants (e.g., minimum collateralization, max LTV) must be **provable and enforced** on every state transition.
-  - Introducing new spell/strategy types must go through **formal review** of how they interact with the existing system.  
+- **Abracadabra (2025 年 3 月, 1290 万ドルの損失)**  
+  GMX V2 CauldronV4 コントラクトにおける担保会計に瑕疵がありました。攻撃者は三段階の手法を用いました。 (1) 失敗するように設計された GMX に預け入れを行い、トークンを OrderAgent に滞留します。 (2) ポジションを自己清算して、コントラクトはポジションを消去しましたが、関連する注文と担保は削除しませんでした。 (3) 「ゴースト」担保を使用して、6,260 ETH (約 1290 万ドル) を借り入れました。預け入れ失敗と清算パスによって経済的不変条件 (担保 ↔ 負債) が破られました。  
+  主な教訓:
+  - すべての経済的不変条件 (例: 最低担保額、最大 LTV) はすべての状態遷移において **証明可能および強制可能** でなければなりません。
+  - 新しいスペル/戦略タイプを導入するには、既存システムとのやり取りについて **正式なレビュー** を行わなければなりません。
   - [https://blog.solidityscan.com/abracadabra-hack-analysis-f2efcdee9c05](https://blog.solidityscan.com/abracadabra-hack-analysis-f2efcdee9c05)
   - [https://www.halborn.com/blog/post/explained-the-abracadabra-money-hack-march-2025](https://www.halborn.com/blog/post/explained-the-abracadabra-money-hack-march-2025)
   - [https://www.coindesk.com/business/2025/03/25/abracadabra-drained-of-usd13m-in-exploit-targeting-cauldrons-tied-to-gmx-liquidity-tokens](https://www.coindesk.com/business/2025/03/25/abracadabra-drained-of-usd13m-in-exploit-targeting-cauldrons-tied-to-gmx-liquidity-tokens)
   - [https://threesigma.xyz/blog/exploit/abracadabra-gmx-defi-exploit-explained](https://threesigma.xyz/blog/exploit/abracadabra-gmx-defi-exploit-explained)
 
-- **Yearn Finance (November 2025, $9M loss)**  
-  A design flaw in the yETH weighted stableswap pool's fixed-point iteration solver. By performing highly imbalanced add/remove liquidity operations, attackers forced the solver into a divergent regime, causing the product term (Π) to collapse to zero—converting the pool from a hybrid stableswap invariant to a constant-sum curve. This allowed minting ~2.35×10⁵⁶ yETH LP tokens without collateral and draining the pool. The vulnerability was **invariant collapse**, not reentrancy or low-level bugs.  
-  Key lessons:
-  - Reward and fee distribution paths must be **simulation-tested** across adversarial scenarios.
-  - Yield strategies should have **clear, testable invariants** (e.g., no user can claim more rewards than their fair share over time).  
+- **Yearn Finance (2025 年 11 月, 900万ドルの損失)**  
+  yETH 加重ステーブルスワッププールの固定小数点反復ソルバーに設計上の欠陥がありました。極端に不均衡な流動性の追加/削除操作を行うことで、攻撃者はソルバーを発散状態に陥らせ、積項 (Π) をゼロに崩壊させて、プールをハイブリッドステープルスワップ不変から定和曲線へと変化しました。これは、担保なしで約 2.35×10⁵⁶ yETH LP トークンをミントし、プールを枯渇できました。この脆弱性は、再入可能性や低レベルバグではなく、**不変崩壊** でした。  
+  主な教訓:
+  - 報酬と手数料の分配経路はあらゆる敵対的シナリオで **シミュレーションテスト** されなければなりません。
+  - 利回り戦略は **明確でテスト可能な不変条件** を持つべきです (いかなるユーザーも時間の経過とともに公平な分配額を超える報酬を請求できないなど)。
   - [https://defimon.xyz/blog/yearn-yeth-hack-november-2025](https://defimon.xyz/blog/yearn-yeth-hack-november-2025)
   - [https://www.cryptopolitan.com/yearn-finance-begins-clawback-after-9m-hack/](https://www.cryptopolitan.com/yearn-finance-begins-clawback-after-9m-hack/)
 
