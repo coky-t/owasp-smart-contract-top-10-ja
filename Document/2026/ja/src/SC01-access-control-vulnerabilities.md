@@ -107,7 +107,7 @@ contract LiquidityPoolSecure is AccessControl {
 ### 2025 ケーススタディ
 
 - **Balancer V2 (2025 年 11 月, 約 1 億 2800 万ドルの損失)**  
-  複雑なマルチチェーンプールエコシステムはプール設定と所有権の想定でのアクセス制御の欠陥に悩まされていました。`manageUserBalance` 関数には不適切なアクセス制御がありました。`msg.sender` をユーザーが提供した `op.sender` 値と比較しており、攻撃者は `msg.sender` と一致するように設定して保護をバイパスし、プールコントローラになりすまして不正な WITHDRAW_INTERNAL 操作を実行しました。これは `_upscaleArray` の丸めエラーと連鎖し、流動性を枯渇しました。
+  複雑なマルチチェーンプールエコシステムはプール設定と所有権の想定でのアクセス制御の欠陥に悩まされていました。`manageUserBalance` 関数には不適切なアクセス制御がありました。`msg.sender` をユーザーが提供した `op.sender` 値と比較しており、攻撃者は `msg.sender` と一致するように設定して保護をバイパスし、プールコントローラになりすまして不正な WITHDRAW_INTERNAL 操作を実行しました。これは `_upscaleArray` の丸めエラーと連鎖し、流動性を枯渇しました。  
   主な教訓:
   - 重要なプール操作は **明示的なロールチェック** とオンチェーンガバナンス **によって保護される** 必要があります。
   - クロスチェーンまたはクロスモジュールの「所有者 (owner)」の概念は、メッセージ発信元から推測するのではなく、**オンチェーンで検証される** 必要があります。
@@ -116,7 +116,7 @@ contract LiquidityPoolSecure is AccessControl {
   - [https://www.halborn.com/blog/post/explained-the-balancer-hack-november-2025](https://www.halborn.com/blog/post/explained-the-balancer-hack-november-2025)
 
 - **Zoth (2025 年 3 月, 840 万ドルの損失)**  
-  中核となる会計および管理機能における不適切な権限チェックにより、攻撃者が不正な資金移動を実行することを可能にしました。攻撃者は Zoth のデプロイヤウォレット (単一の EOA が管理者を制御) を侵害し、USD0PPSubVaultUpgradeable プロキシに悪意のあるアップグレードを実行し、悪意のある実装をデプロイして 840 万ドルを引き落としました。このプロトコルは重要な管理機能を単一の秘密鍵で制御するという脆弱な前提に依存していました。
+  中核となる会計および管理機能における不適切な権限チェックにより、攻撃者が不正な資金移動を実行することを可能にしました。攻撃者は Zoth のデプロイヤウォレット (単一の EOA が管理者を制御) を侵害し、USD0PPSubVaultUpgradeable プロキシに悪意のあるアップグレードを実行し、悪意のある実装をデプロイして 840 万ドルを引き落としました。このプロトコルは重要な管理機能を単一の秘密鍵で制御するという脆弱な前提に依存していました。  
   主な教訓:
   - アドレスに対する **暗黙の信頼** を避けます (例:「デプロイヤは永久に信頼される」)。
   - 運用、緊急、アップグレードのロールを明確に分離した **ロールベースアクセス制御 (RBAC)** を使用します。
@@ -124,7 +124,7 @@ contract LiquidityPoolSecure is AccessControl {
   - [https://www.halborn.com/blog/post/explained-the-zoth-hack-march-2025](https://www.halborn.com/blog/post/explained-the-zoth-hack-march-2025)
 
 - **Cork Protocol (2025 年 5 月, 1100 万～ 1200 万ドルの損失)**  
-  Uniswap V4 のフックコールバック (例: `beforeSwap`) は適切なアクセス制御を欠いていました。呼び出し元が信頼できる PoolManager であることを検証していなかったのです。`beforeSwap` 関数は `onlyPoolManager` 修飾子を持ちません。攻撃者は任意のパラメータでフックを直接呼び出し、プロトコルを欺いて導出トークンを付与しています。根本原因はフックエントリポイントの **呼び出し元バリデーションの欠如** でした。
+  Uniswap V4 のフックコールバック (例: `beforeSwap`) は適切なアクセス制御を欠いていました。呼び出し元が信頼できる PoolManager であることを検証していなかったのです。`beforeSwap` 関数は `onlyPoolManager` 修飾子を持ちません。攻撃者は任意のパラメータでフックを直接呼び出し、プロトコルを欺いて導出トークンを付与しています。根本原因はフックエントリポイントの **呼び出し元バリデーションの欠如** でした。  
   主な教訓:
   - フックとコールバックのエントリポイントはオンチェーンで明示的に **呼び出し元を検証する** (例: onlyPoolManager) 必要があります。
   - [https://dedaub.com/blog/the-11m-cork-protocol-hack-a-critical-lesson-in-uniswap-v4-hook-security/](https://dedaub.com/blog/the-11m-cork-protocol-hack-a-critical-lesson-in-uniswap-v4-hook-security/)
