@@ -121,13 +121,13 @@ contract SaferLending {
 
 ### ベストプラクティスと緩和策
 
-- **Model protocol economics explicitly** (e.g., with adversarial simulations / agent-based models) rather than relying on intuition.
-- Express **core invariants in code and tests**:
-  - “Total value withdrawn cannot exceed total deposits + realized yield”
-  - “Rewards distribution is proportional to time-weighted stake”
-  - “Liquidations never result in protocol loss under honest oracle data”
-- Use **formal verification and property-based fuzzing** for key accounting paths (vaults, strategies, reward distribution).
-- **Version and gate new strategies / spells**:
-  - Roll out behind caps.
-  - Monitor metrics and on-chain invariants before raising limits.
-- Ensure **governance and operations teams understand invariants**, not just auditors.
+- **プロトコルの経済性を** 直感に頼るのではなく **明示的にモデル化します** (例: 敵対的シミュレーションやエージェントベースのモデルを用いて)。
+- **コアとなる不変条件をコードとテストで** 表現します:
+  - 「引き落とし総額は預け入れ総額＋実効利回りを超えることはできません」
+  - 「報酬の分配は時間加重ステークに比例します」
+  - 「清算は信頼できるオラクルデータの下ではプロトコル損失をもたらすことはありません」
+- 主要な会計処理経路 (Vault、戦略、報酬分配) には **形式検証とプロパティベースのファジング** を使用します。
+- **新しい戦略 / スペルのバージョン管理とゲート設定します**:
+  - 上限を設けて展開します。
+  - 上限を引き上げる前にメトリクスとオンチェーン不変条件を監視します。
+- 監査担当者だけでなく **ガバナンスチームと運用チームが不変条件を理解していること** を確認します。
