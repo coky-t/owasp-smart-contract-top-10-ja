@@ -2,18 +2,18 @@
 
 #### 説明
 
-Price oracle manipulation describes any situation where a smart contract relies on price or valuation data that can be **directly or indirectly influenced by an attacker**, causing the protocol to make decisions based on incorrect values. Oracles are trust boundaries: the contract implicitly trusts that the price it receives reflects real-world or on-chain market conditions. When that trust is violated—whether by manipulation, staleness, or misconfiguration—protocol behavior is distorted.
+価格オラクル操作は、スマートコントラクトが **攻撃者によって直接的または間接的に影響を受ける** 可能性のある価格データや評価データに依存している状況を指し、プロトコルが誤った値に基づいて決定を行うことになります。オラクルは信頼の境界であり、コントラクトは受け取る価格が現実世界またはオンチェーンの市場状況を反映していると暗黙的に信頼します。その信頼が、操作、陳腐化、または設定ミスによって侵害されると、プロトコルの動作が歪められます。
 
-This affects all contract types that consume price data: DeFi lending and borrowing (collateral valuation, liquidation), AMMs and DEXes (spot and TWAP-based pricing), yield vaults (NAV calculations, share valuation), liquid staking and derivatives (ETH/stake price feeds), NFT and token valuations (floor price oracles), and cross-chain bridges (asset pricing for mint/burn ratios). On non-EVM chains (e.g., Move, Solana), similar patterns apply wherever external price sources feed into on-chain logic.
+これは価格データを使用するすべてのコントラクトタイプに影響します。DeFi の貸借 (担保評価、清算)、AMM と DEX (スポットと TWAP ベースの価格設定)、Yield Vault (NAV 計算、株式評価)、流動性ステーキングとデリバティブ (ETH/ステーク価格フィード)、NFT とトークンの評価 (フロア価格オラクル)、クロスチェーンブリッジ (ミント/バーン比率に基づく資産価格設定) などです。EVM 以外のチェーン (例: Move, Solana) においても、外部価格ソースがオンチェーンロジックにフィードする箇所で、同様のパターンが適用します。
 
-Few areas to focus on:
+注目する領域は以下のとおりです。
 
-- **DEX-based oracles** (spot price, TWAP, geometric mean) and resistance to flash loans, JIT liquidity, or concentrated liquidity skew
-- **Off-chain and hybrid feeds** (Chainlink, Pyth, custom relayers) and assumptions about freshness, deviation, and multi-source aggregation
-- **Liquidity and market depth** of the underlying price source (thin pools vs. deep markets)
-- **Cross-chain and L2 pricing** (finality delays, sequencer ordering, message relay assumptions)
+- **DEX ベースのオラクル** (スポット価格、TWAP、幾何平均) およびフラッシュローン、JIT 流動性、集中流動性スキュー
+- **オフチェーンとハイブリッドフィード** (Chainlink, Pyth, カスタムリレイヤー) および、鮮度、偏差、マルチソース集約に関する想定
+- 基となる価格ソースの **流動性と市場の深さ** (薄いプール vs. 深い市場)
+- **クロスチェーンと L2 価格設定** (ファイナリティ遅延、シーケンサーの順序付け、メッセージリレーに想定)
 
-Attackers exploit:
+攻撃者は以下のように悪用します。
 
 - **Spot price manipulation** via large trades, flash loans, or JIT liquidity in the same block
 - **TWAP manipulation** over short windows or during low-liquidity periods
