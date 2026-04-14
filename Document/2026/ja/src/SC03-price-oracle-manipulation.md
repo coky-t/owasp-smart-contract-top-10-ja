@@ -15,10 +15,10 @@
 
 攻撃者は以下のように悪用します。
 
-- **Spot price manipulation** via large trades, flash loans, or JIT liquidity in the same block
-- **TWAP manipulation** over short windows or during low-liquidity periods
-- **Stale or stuck data** when contracts do not enforce freshness or fallback behavior
-- **Deviation and outlier handling** when aggregation logic fails to reject manipulated inputs
+- 同一ブロックでの大口取引、フラッシュローン、JIT 流動性による **スポット価格の操作**
+- 短期間または低流動性期間における **TWAP の操作**
+- コントラクトが鮮度維持やフォールバック動作を強制しない場合の **データの陳腐化や滞留**
+- 集計ロジックが操作された入力を拒否できない場合の **逸脱と外れ値の処理**
 
 ### 事例 (脆弱なオラクル使用)
 
