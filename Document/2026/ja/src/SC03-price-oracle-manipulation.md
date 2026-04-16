@@ -57,11 +57,11 @@ contract VulnerableOracleLending {
 }
 ```
 
-**Issues:**
+**問題点:**
 
-- Single oracle source, no aggregation or sanity checks.
-- No upper/lower bounds or deviation checks against past values.
-- Economic parameters (100% LTV) make even minor manipulations profitable.
+- 単一のオラクルソースであり、集計や健全性チェックがありません。
+- 上限/下限境界がなく、過去の値との逸脱チェックがありません。
+- 経済パラメータ (100% LTV) はわずかな操作ですら利益を生み出します。
 
 ### 事例 (堅牢化したオラクル統合)
 
@@ -120,13 +120,13 @@ contract RobustOracleLending {
 }
 ```
 
-**Security Improvements:**
+**セキュリティの改善:**
 
-- Uses a price feed interface with **round metadata** to reject stale or incomplete data.
-- Applies conservative **collateral factors** and explicit borrowing limits.
-- Encapsulates price fetch and validation in `_getSafePrice`, making reasoning and testing easier.
+- **ラウンドメタデータ** 付きの価格フィードインタフェースを使用して、古いデータや不完全なデータを拒否します。
+- 保守的な **担保係数** と明示的な借入限度額を適用します。
+- 価格のフェッチとバリデーションを `_getSafePrice` にカプセル化することで、推論とテストを容易にします。
 
-In 2025, pure oracle-only mega-exploits were less frequent, but oracle manipulation was often one component in **multi-vector attacks**.
+2025 年には、純粋にオラクルのみでの大規模エクスプロイトは少なくなりましたが、オラクル操作は **マルチベクター攻撃** の一要素となることがよくありました。
 
 ### 2025 ケーススタディ
 
