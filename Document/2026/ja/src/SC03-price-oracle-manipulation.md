@@ -130,14 +130,14 @@ contract RobustOracleLending {
 
 ### 2025 ケーススタディ
 
-- **NGP Token (September 2025, ~$2M loss)**  
-  The protocol's `getPrice()` function relied solely on DEX pair (Uniswap V2/PancakeSwap) reserve balances to calculate token price. Attackers used a flash loan to swap large amounts and manipulate reserves, skewing the oracle to show artificially low values, then bypassed purchase limits and cooldown protections to drain ~$2M. Oracle manipulation was the **root cause**.  
+- **NGP Token (2025 年 9 月, 約 200 万ドルの損失)**  
+  プロトコルの `getPrice()` 関数はトークン価格の計算に DEX ペア (Uniswap V2/PancakeSwap) の準備金残高のみに依存していました。攻撃者はフラッシュローンを使用して多額の資金をスワップし、準備金を操作してオラクルを人為的に低い値に歪め、購入制限とクールダウン保護をバイパスして約 200 万ドルを流出しました。オラクル操作が **根本原因** でした。
   - [https://blog.solidityscan.com/ngp-token-hack-analysis-414b6ca16d96](https://blog.solidityscan.com/ngp-token-hack-analysis-414b6ca16d96)
   - [https://hacken.io/insights/ngp-hack-explained/](https://hacken.io/insights/ngp-hack-explained/)
   - [https://coincentral.com/flash-loan-exploit-drains-2-million-from-ngp-token-on-bnb-chain/](https://coincentral.com/flash-loan-exploit-drains-2-million-from-ngp-token-on-bnb-chain/)
 
-- **GMX (July 2025, $42M loss)**  
-  While the primary root cause was reentrancy in `executeDecreaseOrder`, the attack flow involved **price feed manipulation** in conjunction: the attacker manipulated global average short price for Bitcoin downward (~57×), then used a flash loan to purchase GLP at artificially low prices and redeem at inflated prices. Oracle/pricing was a key **enabler** of the exploit.  
+- **GMX (2025 年 7 月, 4200 万ドルの損失)**  
+  主な根本原因は `executeDecreaseOrder` での再入可能性ですが、攻撃フローには併せて **価格フィード操作** を必要になります。攻撃者はビットコインのグローバル平均ショート価格を約 57 倍に引き下げ、その後フラッシュローンを使用して GLP を人為的に低い価格で購入し、高値で償還しました。オラクル/価格設定はエクスプロイトの重要な **実現要因** でした。
   - [https://blog.solidityscan.com/gmx-v1-hack-analysis-ed0ab0c0dd0f](https://blog.solidityscan.com/gmx-v1-hack-analysis-ed0ab0c0dd0f)
   - [https://www.halborn.com/blog/post/explained-the-gmx-hack-july-2025](https://www.halborn.com/blog/post/explained-the-gmx-hack-july-2025)
   - [https://blog.verichains.io/p/gmx-42m-exploit-root-cause-analysis](https://blog.verichains.io/p/gmx-42m-exploit-root-cause-analysis)
