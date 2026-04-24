@@ -18,7 +18,7 @@
 - 同一ブロックでの大口取引、フラッシュローン、JIT 流動性による **スポット価格の操作**
 - 短期間または低流動性期間における **TWAP の操作**
 - コントラクトが鮮度維持やフォールバック動作を強制しない場合の **データの陳腐化や滞留**
-- 集計ロジックが操作された入力を拒否できない場合の **逸脱と外れ値の処理**
+- 集計ロジックが操作された入力を拒否できない場合の **乖離と外れ値の処理**
 
 ### 事例 (脆弱なオラクル使用)
 
@@ -60,7 +60,7 @@ contract VulnerableOracleLending {
 **問題点:**
 
 - 単一のオラクルソースであり、集計や健全性チェックがありません。
-- 上限/下限境界がなく、過去の値との逸脱チェックがありません。
+- 上限/下限境界がなく、過去の値との乖離チェックがありません。
 - 経済パラメータ (100% LTV) はわずかな操作ですら利益を生み出します。
 
 ### 事例 (堅牢化したオラクル統合)
@@ -144,18 +144,18 @@ contract RobustOracleLending {
 
 ### ベストプラクティスと緩和策
 
-- **Aggregate multiple sources**:
-  - Use median/mean of several DEXs / oracles.
-  - Reject outliers and anomalous deviations.
-- **Time-based defenses**:
-  - Use TWAPs over sufficient windows to resist short-lived manipulations.
-  - Reject prices older than a maximum staleness threshold.
-- **Liquidity-aware design**:
-  - Avoid basing core prices on **illiquid pools**.
-  - Cap impact of a single pool/feed on global pricing.
-- **Fail-safe behavior**:
-  - On suspicious or unavailable data, **halt sensitive operations** (borrowing, liquidations).
-  - Use circuit breakers and rate limiting on parameter changes.
-- **Monitoring & alerting**:
-  - Track price deviations between your oracle and reference markets.
-  - Set automated alerts for out-of-band movements or stuck oracles.
+- **複数ソースの集約**:
+  - 複数の DEX / オラクル の中央値/平均値を使用します。
+  - 外れ値や異常な乖離を除外します。
+- **時間ベースの防御**:
+  - 短期的な操作に対抗するために十分な期間にわたって TWAP を使用します。
+  - 最大陳腐化閾値よりも古い価格を除外します。
+- **流動性を考慮した設計**:
+  - **非流動性プール** に基づくコア価格を避けます。
+  - 単一のプール/フィードがグローバル価格に与える影響を制限します。
+- **フェイルセーフ動作**:
+  - 疑わしいデータや利用できないデータについては、**機密性の高い操作** (借入、清算) を **停止します**。
+  - パラメータ変更にはサーキットブレーカーとレート制限を使用します。
+- **監視とアラート**:
+  - オラクルと参照市場間の価格乖離を追跡します。
+  - 帯域外の動きやオラクルの停止に対して自動アラートを設定します。
