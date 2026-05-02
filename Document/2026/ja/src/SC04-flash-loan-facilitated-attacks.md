@@ -2,26 +2,26 @@
 
 #### 説明
 
-Flash loan–facilitated attacks describe exploits where an attacker uses **uncollateralized, same-transaction borrowing** (flash loans) to amplify an underlying vulnerability into a profitable, protocol-draining attack. Flash loans are not inherently vulnerable—they are a legitimate DeFi primitive—but they grant attackers arbitrarily large, transient capital within a single transaction. Any protocol that makes trust assumptions based on *capital at risk* or *historical position size* is exposed when an attacker can temporarily hold massive balances without putting their own funds at risk.
+フラッシュローンを活用した攻撃は、攻撃者が **無担保の同一取引内借入** (フラッシュローン) を使用する悪用を指し、基盤となる脆弱性を増幅し、プロトコルを破綻するような利益を生む攻撃です。フラッシュローンは本質的には脆弱なものではなく、正当な DeFi プリミティブですが、攻撃者に単一の取引内で任意の規模の一時的な資金を付与します。*リスクにさらされている資本* や *過去のポジションサイズ* に基づいて信頼性を前提とするプロトコルは、攻撃者が自身の資金をリスクにさらすことなく一時的に巨額の残高を保持できる場合、危険にさらされます。
 
-This affects all contract types that assume economic constraints or proportional exposure: lending protocols (governance vote weight, liquidation thresholds, collateral ratios), AMMs (share minting, arbitrage, oracle skew), yield vaults (deposit/withdraw/share accounting), governance (vote buying, flash-loan governance attacks), NFT and token valuation (floor price, collateral valuation), and cross-protocol composability where one contract’s state is influenced by another’s liquidity. On non-EVM chains, similar concepts exist (e.g., transient large positions within a single block or batch).
+これは経済的制約や比例的エクスポージャーを前提とするすべてのコントラクトタイプに影響を及ぼします。それには、融資プロトコル (ガバナンス投票権、清算閾値、担保比率)、AMM (株式発行、裁定取引、オラクルスキュー)、イールドボールト (預金/出金/株式会計)、ガバナンス (投票権買収、フラッシュローンによるガバナンス攻撃)、NFT およびトークンの評価 (フロア価格、担保評価)、あるコントラクトの状態が別の流動性によって影響を受けるプロトコル間の構成可能性などがあります。EVM 以外のチェーンでも、同様の概念が存在します (たとえば、単一ブロックまたはバッチ内の一時的な大規模ポジションなど)。
 
-Few areas to focus on:
+注目する領域は以下のとおりです。
 
-- **Governance and voting** (flash-loan vote buying, snapshot manipulation)
-- **Oracle and pricing** (manipulating DEX/TWAP feeds with borrowed liquidity)
-- **Share and accounting logic** (rounding, proportional calculations that assume bounded input)
-- **Liquidation and collateral checks** (position size–dependent thresholds)
-- **Composability** (protocols that trust caller balance or pool state in a single transaction)
+- **ガバナンスと投票** (フラッシュローンによる投票の買収、スナップショット操作)
+- **オラクルと価格設定** (借入流動性での DEX/TWAP フィードの操作)
+- **シェアと会計ロジック** (丸め処理、境界のある入力を想定した比例計算)
+- **清算と担保チェック** (ポジションサイズに依存する閾値)
+- **構成可能性** (単一のトランザクション内で呼び出し元の残高またはプール状態を信頼するプロトコル)
 
-Attackers construct batched transactions that:
+攻撃者は以下のようなバッチ処理トランザクションを構築します。
 
-1. Borrow large capital via flash loan (Aave, dYdX, Uniswap V3 flash, or equivalent).
-2. Manipulate protocol state, prices, or accounting using the borrowed funds.
-3. Extract profit (drain liquidity, take under-collateralized loans, skew governance).
-4. Repay the flash loan in the same transaction, keeping the profit.
+1. フラッシュローン (Aave, dYdX, Uniswap V3 フラッシュ, または同等のもの) を介して多額を借り入れる。
+2. 借り入れた資金を使用して、プロトコルの状態、価格、または会計を操作する。
+3. 利益を得る (流動性を枯渇する、担保不足のローンを得る、ガバナンスを歪める)。
+4. 同じトランザクション内でフラッシュローンを返済し、利益を保持する。
 
-When underlying weaknesses in business logic (SC02), oracles (SC03), arithmetic (SC07), or access control (SC01) exist, flash loans act as a **force multiplier**, turning small bugs into catastrophic exploits.
+ビジネスロジック (SC02)、オラクル (SC03)、算術演算 (SC07)、またはアクセス制御 (SC01) に根本的な弱点が存在する場合、フラッシュローンは **力を増幅する** 役割を果たし、小さなバグを壊滅的なエクスプロイトへと変貌します。
 
 ### 事例 (丸めバグを伴うフラッシュローンの脆弱な使用)
 
