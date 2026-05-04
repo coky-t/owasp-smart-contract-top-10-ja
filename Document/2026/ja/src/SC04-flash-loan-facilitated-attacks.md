@@ -61,10 +61,10 @@ contract VulnerablePool {
 }
 ```
 
-**Issues:**
+**問題点:**
 
-- Rounding always truncates in favor of the protocol, but with repeated flash-loan-driven cycles, a mis-tuned formula or mis-accounted state can be turned into a net gain for an attacker.
-- No consideration for **max slippage, caps, or frequency** of operations, making repeated high-volume operations feasible.
+- 丸め処理は常にプロトコルに有利なように切り捨てますが、フラッシュローンを主体としてサイクルを繰り返される場合、計算式の不備や会計上の誤りが攻撃者にとって有利な結果につながる可能性があります。
+- 操作の **最大スリッページ、上限、頻度** についての考慮がなく、大量の操作を繰り返すことが可能になります。
 
 ### 事例 (緩和した設計考慮)
 
@@ -106,13 +106,13 @@ contract SaferPool {
 }
 ```
 
-**Security Improvements:**
+**セキュリティの改善:**
 
-- Introduces **basic rate limiting** to reduce susceptibility to rapid flash-loan loops.
-- Uses a more conservative, explicitly documented rounding strategy.
-- Encourages formal analysis of share/accounting formulas and invariants.
+- **基本的なレート制限** を導入し、急速なフラッシュローンループへの影響の受けやすさを低減します。
+- より保守的で、明確に文書化された丸め戦略を使用します。
+- シェア/会計計算式および不変量の形式解析を推奨します。
 
-> Note: Real protocols should use stronger defense-in-depth mechanisms rather than relying solely on per-block limits.
+> 注: 実際のプロトコルは、ブロックごとの制限だけに頼るのではなく、より強力な多層防御メカニズムを使用すべきです。
 
 ### 2025 ケーススタディ
 
