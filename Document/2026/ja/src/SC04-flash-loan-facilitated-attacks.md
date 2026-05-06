@@ -116,14 +116,14 @@ contract SaferPool {
 
 ### 2025 ケーススタディ
 
-- **Bunni (September 2025, $8.4M loss)**  
-  A rounding error in the withdrawal function was amplified by flash loans. Attackers flash-borrowed 3M USDT, pushed the pool's spot price to extremes (USDC active balance to 28 wei), then executed 44 chained tiny withdrawals exploiting rounding—decreasing USDC balance by 85.7% while only burning 84.4% of liquidity. Flash loans enabled the capital scale required.  
+- **Bunni (2025 年 9 月, 840 万ドルの損失)**  
+  出金機能の丸めエラーがフラッシュローンによって増幅されました。攻撃者は 300 万 USDT をフラッシュローンで借り入れ、プールの現物価格を極端に押し上げ (USDC のアクティブ残高は 28 wei に至り)、その後、丸め処理を悪用した 44 回の少額出金を連続的に実行しました。流動性の 84.4% しか消費していないにもかかわらず、USDC 残高は 85.7% 減少しました。フラッシュローンは必要な規模の資金を確保しました。
   - [https://www.halborn.com/blog/post/explained-the-bunni-hack-september-2025](https://www.halborn.com/blog/post/explained-the-bunni-hack-september-2025)
   - [https://blog.bunni.xyz/posts/exploit-post-mortem/](https://blog.bunni.xyz/posts/exploit-post-mortem/)
   - [https://cryptorank.io/news/feed/27dc8-bunni-hit-by-8-4m-flash-loan-exploit-rounding-error-blamed](https://cryptorank.io/news/feed/27dc8-bunni-hit-by-8-4m-flash-loan-exploit-rounding-error-blamed)
 
-- **zkLend (February 2025, $9.5M loss)**  
-  A rounding error in the `mint()` function (integer division rounding down) allowed attackers to inflate the lending_accumulator via repeated deposits/withdrawals. Flash loans scaled the position—turning small per-iteration precision gains into a ~$9.5M drain. Flash loans were the **force multiplier**.  
+- **zkLend (2025 年 2 月, 950 万ドルの損失)**  
+  `mint()` 関数の丸めエラー (整数除算の切り捨て) により、攻撃者は繰り返し入出金を介して lending_accumulator を膨らますことができました。フラッシュローンはポジションを拡大し、反復一回ごとのわずかな精度向上が約 950 万ドルの損失につながりました。フラッシュローンは **力を増幅するもの** でした。
   - [https://blog.solidityscan.com/zklend-hack-analysis-e494cb794f71](https://blog.solidityscan.com/zklend-hack-analysis-e494cb794f71)
   - [https://www.halborn.com/blog/post/explained-the-zklend-hack-february-2025](https://www.halborn.com/blog/post/explained-the-zklend-hack-february-2025)
   - [https://zircon.tech/blog/the-9-5m-zklend-hack-another-defi-security-wake-up-call/](https://zircon.tech/blog/the-9-5m-zklend-hack-another-defi-security-wake-up-call/)
