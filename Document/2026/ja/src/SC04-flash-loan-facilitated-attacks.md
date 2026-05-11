@@ -130,15 +130,15 @@ contract SaferPool {
 
 ### ベストプラクティスと緩和策
 
-- **Assume flash loans exist**: design economic and accounting logic on the assumption that arbitrarily large, transient capital is available to attackers.
-- **Rate limit sensitive operations**:
-  - Per-block or per-epoch limits on rebasing, rebalancing, or high-impact state transitions.
-  - Dynamic fees that increase with the magnitude/frequency of actions.
-- **Cap exposure per interaction**:
-  - Set maximum slippage, max position sizes, and borrowing caps.
-  - Limit how much state can change in a single transaction.
-- **Simulate flash loan scenarios**:
-  - Include flash-loan-style tests in QA and audits.
-  - Use fuzzing to discover profitable multi-call sequences.
-- **Combine with strong oracles and logic**:
-  - Flash loans are usually the *multiplier*; underlying issues (SC02, SC03, SC07) must be fixed at the root.
+- **フラッシュローンが存在すると想定する**: 攻撃者が任意に大規模な一時的資金を利用できるという前提で、経済および会計ロジックを設計します。
+- **機密操作をレート制限する**:
+  - リベース、リバランス、または影響の大きい状態遷移に対してブロックごとまたはエポックごとに制限します。
+  - 動的な手数料をアクションの規模/頻度に応じて増加します。
+- **インタラクションごとにエクスポージャーに上限設定する**:
+  - 最大スリッページ、最大ポジションサイズ、借入上限を設定します。
+  - 単一のトランザクションで状態が変化できる量を制限します。
+- **フラッシュローンシナリオをシミュレートする**:
+  - QA および監査にフラッシュローンスタイルのテストを含めます。
+  - ファジングを使用して、収益性の高いマルチコールシーケンスを発見します。
+- **強力なオラクルとロジックとで組み合わせる**:
+  - フラッシュローンは通常 *増幅するもの* です。根本的な問題 (SC02, SC03, SC07) を根本から解決する必要があります。
