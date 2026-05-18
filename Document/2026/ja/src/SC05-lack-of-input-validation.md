@@ -2,26 +2,26 @@
 
 #### 説明
 
-Lack of input validation describes any situation where a smart contract processes external data—function parameters, calldata, cross-chain messages, or signed payloads—**without rigorously enforcing** that the data is well-formed, within expected bounds, and authorized for the intended operation. Contracts that assume inputs are benign leave themselves open to malformed or adversarial data that pushes the system into unsafe states, corrupts accounting, or bypasses intended checks.
+入力バリデーションの欠如は、スマートコントラクトが外部データ (関数パラメータ、呼び出しデータ、クロスチェーンメッセージ、署名付きペイロード) を処理する際に、データが適切な形式であり、想定した範囲内であり、意図した操作に対して認可されていることを **厳密に適用することのない** 状況を指します。入力が良性であると想定するコントラクトは、システムを安全でない状態に追い込んだり、会計処理を破損したり、意図したチェックをバイパスする不正なデータや悪意のあるデータに身にさらします。
 
-This applies across all contract types: DeFi (fee bps, slippage, amounts, addresses), NFTs (token IDs, metadata, royalty config), DAOs (proposal payloads, voting parameters), bridges (message payloads, destination chains), and generic composable contracts that accept arbitrary calldata or relayed calls. On non-EVM chains, the same principle holds: untrusted inputs from users, other contracts, or cross-chain channels must be validated before use.
+これは、DeFi (手数料 bps、スリッページ、金額、アドレス)、NFT (トークン ID、メタデータ、ロイヤリティ設定)、DAO (提案ペイロード、投票パラメータ)、ブリッジ (メッセージペイロード、宛先チェーン)、任意のコールデータまたはリレーコールを受け入れる汎用的な構成可能コントラクトなど、すべてのコントラクトタイプにわたって適用します。EVM 以外のチェーンにおいても、同じ原則を保持します。ユーザー、他のコントラクト、またはクロスチェーンチャネルからの信頼できない入力は使用前に検証する必要があります。
 
-Few areas to focus on:
+注目する領域は以下のとおりです。
 
-- **Numeric parameters** (amounts, fees, rates, slippage, collateral factors) and safe bounds
-- **Addresses** (zero address, contract vs. EOA assumptions, delegated or proxy addresses)
-- **Off-chain and signed data** (signatures, expiry, nonce replay)
-- **Cross-chain and bridge payloads** (message format, chain ID, sender verification)
-- **Admin and governance inputs** (configuration values, upgrade parameters)—often treated as trusted but can be misconfigured or exploited
+- **数値パラメータ** (金額、手数料、レート、スリッページ、担保係数) および安全境界
+- **アドレス** (ゼロアドレス、コントラクト対 EOA の想定、委譲アドレスまたはプロキシアドレス)
+- **オフチェーンおよび署名付きデータ** (署名、有効期限、nonce リプレイ)
+- **クロスチェーンおよびブリッジペイロード** (メッセージフォーマット、チェーン ID、送信者検証)
+- **管理者およびガバナンス入力** (設定値、アップグレードパラメータ) — 通常は信頼できるものとして扱われますが、設定ミスや悪用される可能性があります
 
-Attackers exploit:
+攻撃者は以下を悪用します。
 
-- **Out-of-bounds values** (e.g., fee > 100%, zero amounts, max uint) that break invariants
-- **Malformed addresses or payloads** that bypass allowlists or cause unexpected behavior
-- **Replay and ordering attacks** when nonce/expiry/chain ID are not validated
-- **Composability edge cases** when contracts assume caller format or trust relayed data
+- 不変条件を崩壊する **境界外の値** (例: 手数料 100% 超え、金額ゼロ、最大 uint 値)
+- 許可リストをバイパスまたは予期しない動作を発生する **不正な形式のアドレスまたはペイロード**
+- nonce/有効期限/チェーン ID が検証されていない場合の **リプレイ攻撃および順序付け攻撃**
+- コントラクトが呼び出し元形式を前提としている場合、または中継されたデータを信頼している場合の **構成可能性のエッジケース**
 
-In 2025, input validation issues often appeared as a *contributing factor*, e.g., failure to enforce safe ranges on parameters controlling liquidity or interest computations.
+2025 年には、入力バリデーションの問題が *要因* として頻繁に現れました。たとえば、流動性や利息計算を制御するパラメータに安全な範囲を適用できない場合などです。
 
 ### 事例 (脆弱なパラメータ処理)
 
