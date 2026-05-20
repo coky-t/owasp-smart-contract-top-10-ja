@@ -47,12 +47,12 @@ contract VulnerableConfig {
 }
 ```
 
-**Issues:**
+**問題点:**
 
-- No access control: anyone can call `setConfig`.
-- No validation of `_feeBps` or `_maxDeposit`:
-  - `feeBps` could exceed 100%, breaking fee logic.
-  - `maxDeposit` could be set to an unsafe or zero value, disrupting the protocol.
+- アクセス制御なし: 誰でも `setConfig` を呼び出すことができます。
+- `_feeBps` や `_maxDeposit` のバリデーションなし:
+  - `feeBps` が 100% を超えると、手数料ロジックが破綻する可能性があります。
+  - `maxDeposit` が安全でない値またはゼロ値に設定されると、プロトコルを中断する可能性があります。
 
 ### 事例 (強力なバリデーションを備えた修正バージョン)
 
@@ -89,11 +89,11 @@ contract SafeConfig {
 }
 ```
 
-**Security Improvements:**
+**セキュリティの改善:**
 
-- Validates that fee is bounded within a documented, safe range.
-- Requires `maxDeposit` to be non-zero, preventing misconfiguration.
-- Restricts configuration changes to the contract owner (see SC01 for more advanced RBAC).
+- 手数料が文書化された安全な範囲内に収まっていることを検証します。
+- `maxDeposit` が非ゼロであることを必須とし、設定ミスを防止します。
+- 設定変更をコントラクトオーナーに制限します (より高度な RBAC については SC01 を参照)。
 
 ### 2025 ケーススタディ
 
