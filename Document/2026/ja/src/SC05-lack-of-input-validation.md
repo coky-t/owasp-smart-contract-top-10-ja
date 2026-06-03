@@ -97,14 +97,14 @@ contract SafeConfig {
 
 ### 2025 ケーススタディ
 
-- **Cetus (May 2025, $223M loss)**  
-  The primary root cause was a flawed overflow check in `checked_shlw` (see SC09). However, **insufficient input validation** was a contributing factor—the protocol allowed extreme liquidity parameters (e.g., ~2^113) without bounds checks. When combined with the flawed arithmetic, these unvalidated inputs produced dangerous edge cases leading to pool drains.  
+- **Cetus (2025 年 5 月, 2 億 2300 万ドルの損失)**  
+  主な根本原因は `checked_shlw` におけるオーバーフローチェックの不備でした (SC09 参照)。しかし、**不十分な入力バリデーション** が一因でした。プロトコルは境界チェックなしに極端な流動性パラメータ (例: 約 2^113) を許容していました。欠陥のある計算と組み合わさることで、これらの検証されていない入力はプール流出につながる危険なエッジケースを生み出しました。
   - [https://dedaub.com/blog/the-cetus-amm-200m-hack-how-a-flawed-overflow-check-led-to-catastrophic-loss/](https://dedaub.com/blog/the-cetus-amm-200m-hack-how-a-flawed-overflow-check-led-to-catastrophic-loss/)
   - [https://www.cyfrin.io/blog/inside-the-223m-cetus-exploit-root-cause-and-impact-analysis](https://www.cyfrin.io/blog/inside-the-223m-cetus-exploit-root-cause-and-impact-analysis)
   - [https://www.halborn.com/blog/post/explained-the-cetus-hack-may-2025](https://www.halborn.com/blog/post/explained-the-cetus-hack-may-2025)
 
-- **Ionic Money (February 2025, ~$6.9M loss)**  
-  Attackers used **social engineering** to convince the protocol to list a counterfeit LBTC token. Once listed, the protocol accepted it as collateral without validating token authenticity on-chain (e.g., verification that listed collateral contracts are legitimate). Attackers minted 250 fake LBTC and used it to borrow ~$8.6M. *Note: The root cause was partly off-chain (governance/listing process); the on-chain vulnerability was insufficient validation that collateral tokens are genuine before trusting whitelisted addresses.*  
+- **Ionic Money (2025 年 2 月, 約690万ドルの損失)**  
+  攻撃者は **ソーシャルエンジニアリング** を使用して、プロトコルに偽造 LBTC トークンをリストするように仕向けました。リスト後、プロトコルはトークンの真正性をオンチェーンで検証することなく (たとえば、リストされた担保コントラクトが正当なものであることを検証することなく)、それを担保として受け入れました。攻撃者は 250 の偽 LBTC を鋳造し、それを使用して約 860 万ドルを借り入れました。*注: 根本原因の一部はオフチェーン (ガバナンス/リストするプロセス) にありましたが、オンチェーンの脆弱性は、ホワイトリストされたアドレスを信頼する前に、担保トークンが真正であることのバリデーションが不十分である点にありました。*
   - [https://www.halborn.com/blog/post/explained-the-ionic-money-hack-february-2025](https://www.halborn.com/blog/post/explained-the-ionic-money-hack-february-2025)
   - [https://rekt.news/ionic-money-rekt](https://rekt.news/ionic-money-rekt)
 
