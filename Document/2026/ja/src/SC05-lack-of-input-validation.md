@@ -110,13 +110,13 @@ contract SafeConfig {
 
 ### ベストプラクティスと緩和策
 
-- **Validate all external inputs**, including:
-  - Function parameters (amounts, addresses, configuration values)
-  - Off-chain-signed data and calldata payloads
-  - Cross-chain messages and bridge payloads
-- Enforce **tight invariants**:
-  - Ranges for fees, interest rates, leverage, and collateral factors.
-  - Non-zero requirements for key addresses and limits.
-- Use **custom errors** and explicit checks to keep validation clear and gas-efficient.
-- Treat **admin and governance inputs** as untrusted until validated—misconfiguration can be as damaging as explicit exploits.
-- Include **negative tests** for invalid inputs (fuzzing, property tests) to ensure unexpected values are rejected.
+- **すべての外部入力を検証します**。これには以下を含みます。
+  - 関数パラメータ (金額、アドレス、設定値)
+  - オフチェーン署名データおよびコールデータペイロード
+  - クロスチェーンメッセージおよびブリッジペイロード
+- **厳密な不変条件** を適用します。
+  - 手数料、金利、レバレッジ、担保係数の範囲。
+  - キーアドレスおよび制限に対する非ゼロ要件。
+- **カスタムエラー** と明示的なチェックを使用して、バリデーションを明確かつガス効率に保ちます。
+- **管理者およびガバナンス入力** は検証されるまで信頼できないものとして扱います。設定ミスは明示的なエクスプロイトと同様に損害をもたらす可能性があります。
+- 無効な入力に対する **ネガティブテスト** (ファジング、プロパティテスト) を含めて、予期しない値が拒否されるようにします。
