@@ -2,24 +2,24 @@
 
 #### 説明
 
-Unchecked external calls describe any situation where a smart contract invokes another contract or address (via `call`, `delegatecall`, `staticcall`, or high-level calls like `transfer`/`send`) **without fully accounting for** the callee’s behavior, return value, or reentrancy potential. The calling contract implicitly trusts that the callee will behave as expected—returning success, not re-entering, and not executing arbitrary logic. When that assumption is violated, the caller can be left in an inconsistent state or exploited.
+チェックされていない外部呼び出しは、スマートコントラクトが別のコントラクトまたはアドレスを呼び出す場合 (`call`, `delegatecall`, `staticcall`, または `transfer`/`send` などの高レベル呼び出しを介して)、呼び出し先の動作、戻り値、再入可能性を **十分に考慮せずに** 呼び出す状況を指します。呼び出し元のコントラクトは、呼び出し先が期待どおりに動作すること (成功を返し、再入せず、任意のロジックを実行しないこと) を暗黙的に信頼しています。この前提が破られた場合、呼び出し元は矛盾した状態に陥ったり、悪用される可能性があります。
 
-This affects all contract types that perform external interactions: DeFi (token transfers, DEX swaps, vault deposits, flash loan callbacks), NFTs (transfers with hooks, marketplace payouts), DAOs (execution of proposal calldata), bridges (message relay, asset transfers), and composable protocols (arbitrary callbacks, ERC-777/ERC-721/ERC-1155 receiver hooks, ERC-4626 deposit/withdraw hooks). On non-EVM chains, analogous patterns exist (e.g., Move’s `vector::borrow`, Solana CPI) where cross-program invocations can re-enter or behave unexpectedly.
+これは、外部とのやり取りを行うすべてのコントラクトタイプに影響します。DeFi (トークン転送、DEX スワップ、ボルト預金、フラッシュローンコールバック)、NFT (フック付き転送、マーケットプレイス支払い)、DAO (提案コールデータの実行)、ブリッジ (メッセージリレー、資産転送)、構成可能プロトコル (任意のコールバック、ERC-777/ERC-721/ERC-1155 レシーバーフック、ERC-4626 預金/出金フック) があります。非 EVM チェーンにも、同様のパターンが存在し (例: Move の `vector::borrow`, Solana CPI)、プログラム間呼び出しが再実行したり、予期しない動作をする可能性があります。
 
-Few areas to focus on:
+注目する領域は以下のとおりです。
 
-- **Token transfers** (ERC-20, ERC-721, ERC-1155) and non-standard return values or reverting behavior
-- **Callback and hook interfaces** (ERC-777 `tokensReceived`, ERC-4626 `afterDeposit`/`beforeWithdraw`, `onFlashLoan`, `onERC721Received`)
-- **Low-level calls** (`call`, `delegatecall`, `callcode`) and gas/storage implications
-- **Composability flows** (vault calling strategy, strategy calling DEX) where reentrancy can cross multiple contracts
+- **トークン転送** (ERC-20, ERC-721, ERC-1155) および非標準の戻り値や元に戻す動作
+- **コールバックおよびフックインタフェース** (ERC-777 `tokensReceived`, ERC-4626 `afterDeposit`/`beforeWithdraw`, `onFlashLoan`, `onERC721Received`)
+- **低レベル呼び出し** (`call`, `delegatecall`, `callcode`) およびガス/ストレージへの影響
+- 再入可能性が複数のコントラクトにまたがる **構成可能性フロー** (ボルト呼び出しストラテジー、ストラテジー呼び出し DEX)
 
-Attackers exploit:
+攻撃者は以下を悪用します。
 
-- **Reentrancy** by implementing malicious logic in callbacks or in tokens that hook into transfers (see SC08)
-- **Silent failures** when return values are ignored (e.g., non-returning ERC-20s) and state is left inconsistent
-- **Unexpected code execution** when calling user-supplied or protocol-configurable addresses
+- 転送にフックするコールバックやトークンに悪意のあるロジックを実装することによる **再入可能性** (SC08 参照)
+- 戻り値が無視され (リターンしない ERC-20 など)、状態が不整合なままである場合の **静かな失敗**
+- ユーザーが提供したアドレスやプロトコルで設定可能なアドレスを呼び出す際の **予期しないコード実行**
 
-Unchecked external calls are rarely the *sole* root cause but are a **critical enabler** for reentrancy (SC08), business logic exploits (SC02), and accounting inconsistencies.
+チェックされていない外部呼び出しは *唯一の* 根本原因となることは稀ですが、再入可能性 (SC08)、ビジネスロジックの悪用 (SC02)、および会計上の不整合の **重大な誘因** となります。
 
 ### 事例 (脆弱なチェックされていない呼び出しパターン)
 
