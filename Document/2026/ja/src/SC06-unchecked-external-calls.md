@@ -53,10 +53,10 @@ contract VulnerablePayout {
 }
 ```
 
-**Issues:**
+**問題点:**
 
-- The `transfer` call’s return value is ignored; if transfer fails, rewards remain non-zero but the user did not receive tokens.
-- State is updated **after** the external call, opening reentrancy possibilities (if the token is malicious).
+- `transfer` 呼び出しの戻り値は無視されます。転送が失敗した場合、報酬は非ゼロになりますが、ユーザーはトークンを受け取りません。
+- 状態は外部呼び出しの **後** に更新され、(トークンが悪意のあるものの場合) 再入の可能性を開きます。
 
 ### 事例 (堅牢化された外部呼び出し処理)
 
@@ -95,12 +95,12 @@ contract SafePayout {
 }
 ```
 
-**Security Improvements:**
+**セキュリティの改善:**
 
-- State is updated **before** the external call, limiting simple reentrancy on `rewards`.
-- The token transfer’s return value is checked; failure results in a revert, preventing silent inconsistencies.
+- 状態が外部呼び出しの **前** に更新され、`rewards` に単純な再入可能性を制限します。
+- トークン転送の戻り値がチェックされます。失敗した場合には元に戻り、サイレントな不整合を防ぎます。
 
-> Note: For full reentrancy protection, see SC08 and consider `ReentrancyGuard`, checks-effects-interactions, and pull-based patterns.
+> 注: 完全な再入可能性保護については、SC08 を参照し、`ReentrancyGuard`、checks-effects-interactions、プルベースのパターンを検討してください。
 
 ### 2025 ケーススタディ
 
