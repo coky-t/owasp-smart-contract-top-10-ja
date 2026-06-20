@@ -104,13 +104,13 @@ contract SafePayout {
 
 ### 2025 ケーススタディ
 
-- **GMX (July 2025, $42M loss)**  
-  Unsafe external interactions and state updates after external calls allowed attackers to re-enter and manipulate accounting. The `executeDecreaseOrder` function transferred control to an attacker-supplied contract address during the refund process, enabling reentrancy. External call ordering, lack of proper checks, and reliance on assumptions about callee behavior amplified the impact.  
+- **GMX (2025 年 7 月, 4200 万ドルの損失)**  
+  安全でない外部インタラクションと外部呼び出し後の状態更新は攻撃者が再入して会計処理を操作することが可能になりました。`executeDecreaseOrder` 関数は払い戻し処理時に攻撃者が提供したコントラクトアドレスに制御を移し、再入を可能にしました。外部呼び出しの順序付け、適切なチェックの欠如、呼び出し先動作に関する想定への依存が影響を増大しました。
   - [https://blog.solidityscan.com/gmx-v1-hack-analysis-ed0ab0c0dd0f](https://blog.solidityscan.com/gmx-v1-hack-analysis-ed0ab0c0dd0f)
   - [https://www.halborn.com/blog/post/explained-the-gmx-hack-july-2025](https://www.halborn.com/blog/post/explained-the-gmx-hack-july-2025)
 
-- **Arcadia Finance (July 2025, $3.5M loss)**  
-  The `SwapLogic._swapRouter()` and `RebalancerSpot` contracts allowed **arbitrary external calls** to user-supplied router addresses via `swapData` parameters, without validating the callee. The attacker registered a malicious contract as both the router and a whitelisted ArcadiaAccount, then used the router callback to spoof privileged execution contexts and invoke `setAssetManager()` / `flashAction()`. The protocol assumed the router would not have elevated permissions—an assumption not enforced in code. Unchecked callbacks and trust in external callee behavior enabled the drain.  
+- **Arcadia Finance (2025 年 7 月, 350 万ドルの損失)**  
+  `SwapLogic._swapRouter()` および `RebalancerSpot` コントラクトは、呼び出し先を検証することなく、`swapData` パラメータを介してユーザーが提供したルーターアドレスへの **任意の外部呼び出し** を可能にしていました。攻撃者は悪意のあるコントラクトをルーターとホワイトリストにある ArcadiaAccount の両方として登録され、ルーターのコールバックを使用して特権実行コンテキストを偽装し、`setAssetManager()` / `flashAction()` を呼び出します。プロトコルはルーターが昇格されたパーミッションを持たないことを想定していましたが、この想定はコード内で強制されていませんでした。チェックされていないコールバックと外部呼び出し先の動作に対する信頼が流出を可能にしました。
   - [https://blog.solidityscan.com/arcadia-finance-hack-analysis-a03a722e554d](https://blog.solidityscan.com/arcadia-finance-hack-analysis-a03a722e554d)
   - [https://www.guardrail.ai/blog/arcadia-finance-hack-july-2025](https://www.guardrail.ai/blog/arcadia-finance-hack-july-2025)
 
