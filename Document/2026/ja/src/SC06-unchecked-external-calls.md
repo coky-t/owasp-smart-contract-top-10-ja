@@ -116,17 +116,17 @@ contract SafePayout {
 
 ### ベストプラクティスと緩和策
 
-- **Treat all external calls as untrusted**:
-  - Even “standard” tokens or well-known protocols can be upgraded or replaced.
-  - Assume they may re-enter or revert unexpectedly.
-- Use the **checks-effects-interactions** pattern:
-  - Validate pre-conditions.
-  - Update internal state.
-  - Only then perform external calls.
-- Prefer **pull** over **push** for payments:
-  - Allow users to withdraw rather than pushing funds to arbitrary addresses in loops.
-- Check return values and handle all failure modes:
-  - Use libraries like OpenZeppelin’s `SafeERC20` to wrap token operations.
-- Be extremely careful with:
-  - Low-level calls (`call`, `delegatecall`, `callcode`)
-  - Arbitrary callbacks (e.g., hooks, onERC721Received, onFlashLoan callbacks)
+- **すべての外部呼び出しを信頼できないものとして扱います**:
+  - 「標準 (standard)」トークンやよく知られたプロトコルでさえもアップグレードや置き換えられる可能性があります。
+  - 予期せず再入や元に戻る可能性があることを想定します。
+- **checks-effects-interactions** パターンを使用します:
+  - 事前条件を検証します。
+  - 内部状態を更新します。
+  - その後でのみ、外部呼び出しを実行します。
+- 支払いには **プッシュ** ではなく **プル** を優先します:
+  - ループ内で任意のアドレスに資金をプッシュするのではなく、ユーザーが引き落としできるようにします。
+- 戻り値をチェックし、すべての障害モードを処理します:
+  - OpenZeppelin の `SafeERC20` などのライブラリを使用してトークン操作をラップします。
+- 以下には特に注意します:
+  - 低レベル呼び出し (`call`, `delegatecall`, `callcode`)
+  - 任意のコールバック (例: フック、onERC721Received、onFlashLoan コールバック)
