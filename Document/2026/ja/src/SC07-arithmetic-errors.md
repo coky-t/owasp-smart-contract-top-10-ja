@@ -2,26 +2,26 @@
 
 #### 説明
 
-Arithmetic errors (rounding and precision loss) describe any situation where a smart contract performs integer-based calculations that produce incorrect or exploitable results due to truncation, scaling, or unit conversion. Smart contracts are limited to integer arithmetic; any division, fixed-point scaling, or conversion between units can lose precision, introduce asymmetric rounding, or—when combined with unchecked blocks or non-EVM semantics—cause overflow/underflow (see SC09).
+算術エラー (丸めと精度の損失) は、スマートコントラクトが、切り捨て、スケーリング、単位変換により誤った結果や悪用可能な結果を生じる、整数ベースの計算を実行する状況です。スマートコントラクトは整数演算に制限されています。除算、固定小数点スケーリング、単位間の変換は精度を損失したり、非対称な丸めをもたらしたり、あるいは未チェックのブロックや非 EVM セマンティクスと組み合わせされる場合には、オーバーフロー/アンダーフロー (SC09 を参照) を引き起こす可能性があります。
 
-This affects all contract types that compute numeric values: DeFi (share minting/burning, LP tokens, interest accrual, swap outputs, AMM invariant updates), yield vaults and ERC-4626 (asset/share conversions), rebasing tokens, reward distribution, and NFT/token economics. On non-EVM chains (e.g., Move, Rust-based), integer semantics and available precision differ; similar risks apply wherever arithmetic drives economic outcomes.
+これは数値計算を行うあらゆるコントラクタタイプに影響を及ぼします。これには DeFi (シェアのミント/バーン、LP トークン、利息の発生、スワップの出力、AMM 不変量の更新)、イールドボールトおよび ERC-4626 (資産/シェアの変換)、リベーストークン、報酬の分配、NFT/トークンエコノミクスがあります。非 EVM チェーン (Move、Rust ベースなど) では、整数セマンティクスや利用可能な精度は異なりますが、算術演算が経済的結果を左右する場面ではどこでも同様のリスクが存在します。
 
-Few areas to focus on:
+注目する領域は以下のとおりです。
 
-- **Share and LP token calculations** (deposit/withdraw formulas, rounding direction)
-- **Interest and reward accrual** (compounding, time-weighted averages)
-- **Swap and AMM math** (constant product, concentrated liquidity, output calculations)
-- **Fixed-point and scaling** (1e18, 1e8 conventions, cross-token conversions)
-- **Rebasing and proportional distribution** (per-user vs. global accounting)
+- **シェアおよび LP トークンの計算** (預け入れ/引き落としの式、丸め方向)
+- **利息および報酬の発生** (複利計算、時間加重平均)
+- **スワップおよび AMM の計算** (定数積、集中流動性、出力計算)
+- **固定小数点およびスケーリング** (1e18 や 1e8 の慣例、トークン間換算)
+- **リベースおよび比例配分** (ユーザーごととグローバルの会計)
 
-Attackers exploit:
+攻撃者は以下を悪用します。
 
-- **Rounding bias** (e.g., rounding that favors depositor or protocol under adversarial sequences)
-- **Repeated small gains** via flash loans (SC04) or high-frequency interactions
-- **Edge cases** (zero total supply, first depositor, extreme ratios) where formulas break down
-- **Precision loss** in multi-step computations that accumulates across operations
+- **丸めバイアス** (例: 敵対的シーケンスの下で預け入れまたはプロトコルに有利となる丸め)
+- フラッシュローン (SC04) や高頻度なやり取りを介した **少額利益の積み重ね**
+- 計算式が破綻する **エッジケース** (総供給量ゼロ、最初の預け入れ、極端な比率)
+- 操作を通じて蓄積する多段階の計算での **精度の損失**
 
-When combined with flash loans (SC04) or business logic flaws (SC02), arithmetic errors can be amplified into protocol-draining exploits.
+フラッシュローン (SC04) やビジネスロジックの欠陥 (SC02) と組み合わされると、算術エラーはプロトコルの資金流出となるような悪用につながる可能性があります。
 
 ### 事例 (脆弱な株価計算)
 
