@@ -53,10 +53,10 @@ contract VulnerableShares {
 }
 ```
 
-**Issues:**
+**問題点:**
 
-- Rounding always truncates; under adversarial sequences of deposits/withdrawals, this can be gamed.
-- No invariant tests to ensure that total share value remains consistent across edge cases.
+- 丸めは常に切り捨てとなります。預け入れ/引き落としの敵対的シーケンスの下では、これが悪用される可能性があります。
+- エッジケースにおいても総株式価値が一定であることを確保する不変テストがありません。
 
 ### 事例 (より堅牢な算術演算と不変条件設計)
 
@@ -95,13 +95,13 @@ contract SaferShares {
 }
 ```
 
-**Security Improvements:**
+**セキュリティの改善:**
 
-- Explicitly handles initial states and avoids division by zero.
-- Uses a clearly documented rounding strategy (`round up` in this example).
-- Adds overflow checks and custom errors for clarity.
+- 初期状態を明示的に処理し、ゼロ除算を回避します。
+- 明確に文書化された丸め戦略 (この例では `round up`) を使用します。
+- オーバーフローチェックと、わかりやすさのためのカスタムエラーを追加します。
 
-> Real-world protocols should pair such logic with formal reasoning and invariants (e.g., through formal verification or property-based tests).
+> 実際のプロトコルでは、このようなロジックを形式的推論と不変条件 (形式検証やプロパティベーステストなど) と組み合わせるべきです。
 
 ### 2025 ケーススタディ
 
