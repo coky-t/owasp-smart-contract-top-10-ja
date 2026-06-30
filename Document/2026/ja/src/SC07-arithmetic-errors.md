@@ -105,13 +105,13 @@ contract SaferShares {
 
 ### 2025 ケーススタディ
 
-- **zkLend (February 2025, $9.5M loss)**  
-  A rounding error in the `mint()` function—integer division rounding down—caused a mismatch between recorded and actual values. A withdrawal that should have burned 1.5 tokens rounded down to 1.0, allowing attackers to artificially inflate the lending_accumulator via repeated deposits/withdrawals and drain ~$9.5M.  
+- **zkLend (2025 年 2 月, 950 万ドルの損失)**  
+  `mint()` 関数の丸めエラー (整数除算による切り捨て) は記録された値と実際の値の間に不整合を引き起こしました。1.5 トークンを焼却すべき引き落としでは 1.0 に切り捨てられ、攻撃者は入出金を繰り返すことで lending_accumulator を人為的に膨張させ、約 950 万ドルを流出しました。
   - [https://blog.solidityscan.com/zklend-hack-analysis-e494cb794f71](https://blog.solidityscan.com/zklend-hack-analysis-e494cb794f71)
   - [https://www.halborn.com/blog/post/explained-the-zklend-hack-february-2025](https://www.halborn.com/blog/post/explained-the-zklend-hack-february-2025)
 
-- **Bunni (September 2025, $8.4M loss)**  
-  Precision bugs in the withdrawal function's rounding logic. Developers assumed rounding down the idle balance would be "safe," but repeated operations created an exploitable loophole—the attacker decreased USDC balance by 85.7% while only burning 84.4% of liquidity, enabling disproportionate value extraction.  
+- **Bunni (2025 年 9 月, 840 万ドルの損失)**  
+  引き落とし機能の丸めロジックに精度バグがありました。開発者は遊休残高の切り捨てが「安全」であると想定していましたが、操作を繰り返すことで悪用可能な抜け穴を生じました。攻撃者は流動性の 84.4% を焼却するだけで USDC 残高を 85.7% 減少し、不釣り合いな価値の引き出しを可能にしました。
   - [https://www.halborn.com/blog/post/explained-the-bunni-hack-september-2025](https://www.halborn.com/blog/post/explained-the-bunni-hack-september-2025)
   - [https://blog.bunni.xyz/posts/exploit-post-mortem/](https://blog.bunni.xyz/posts/exploit-post-mortem/)
   - [https://cryptotimes.io/2025/09/05/bunni-reveals-code-flaw-behind-8-4-million-exploit](https://cryptotimes.io/2025/09/05/bunni-reveals-code-flaw-behind-8-4-million-exploit)
