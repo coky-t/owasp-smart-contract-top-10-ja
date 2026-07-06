@@ -118,13 +118,13 @@ contract SaferShares {
 
 ### ベストプラクティスと緩和策
 
-- **Use safe math patterns** (Solidity 0.8+ has built-in checks, but logic around them still matters).
-- Clearly document and test your **rounding strategy**:
-  - Decide whether rounding should favor the protocol or users.
-  - Prove that repeated interactions cannot create “free value”.
-- Rely on **well-reviewed math libraries** for complex operations:
-  - Fixed-point math (e.g., 1e18 scaling)
-  - High-precision exponentiation or logarithms
-- Incorporate **invariant checks**:
-  - E.g., `totalAssets` vs. sum of user balances, or share/value consistency after operations.
-- Use **fuzz testing and differential testing** to discover edge cases around small/large values and repeated operations.
+- **安全な安全な算術パターンを使用します** (Solidity 0.8 以降にはビルトインのチェックを有しますが、それらに関連するロジックも依然として重要です)。
+- **丸め戦略** を明確に文書化してテストします。
+  - 丸めをプロトコルに有利にするか、ユーザーに有利にするかを決定します。
+  - 繰り返し操作が「無償の価値」を生み出すことができないことを証明します。
+- 複雑な演算には **十分にレビューされた算術ライブラリ** を利用します。
+  - 固定小数点演算 (例: 1e18 スケーリング)
+  - 高精度な累乗や対数
+- **不変チェック** を組み込みます:
+  - 例: `totalAssets` とユーザー残高の合計、操作後のシャアと価値の一貫性。
+- **ファズテストや差分テスト** を使用して、小さい/大きい値や繰り返し操作に関するエッジケースを発見します。
