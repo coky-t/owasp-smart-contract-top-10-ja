@@ -2,23 +2,23 @@
 
 #### 説明
 
-Reentrancy describes any situation where a smart contract performs an external call (to another contract or address), and the callee can **call back into** the original contract before the first invocation has completed and state has been fully updated. If the caller is not designed to be reentrancy-safe, the callback can observe stale state and exploit it—e.g., withdrawing more than the caller’s balance, double-counting rewards, or manipulating accounting across complex multi-step flows.
+再入可能性は、スマートコントラクトが外部呼び出し (他のコントラクトやアドレスへの呼び出し) を行う際、最初の呼び出しが完了して状態が完全に更新される前に、呼び出し先が元のコントラクトに **呼び戻す** ことができる状況を指します。呼び出し元がリエントランシーセーフであるように設計されていない場合、そのコールバックは古い状態を観測して悪用する可能性があります。たとえば、呼び出し元の残高以上の引き落とし、報酬の二重計上、複雑な多段階フローにわたる会計処理の操作があります。
 
-This affects all contract types that perform external calls: DeFi (token transfers, DEX swaps, vault deposits/withdrawals, flash loan callbacks), NFTs (transfers with ERC-721/ERC-1155 receiver hooks, marketplace payouts), DAOs (proposal execution that invokes external contracts), bridges (message relay, asset transfers), and composable protocols (ERC-777 hooks, ERC-4626 deposit/withdraw hooks). Reentrancy can be **single-function** (same function called recursively), **cross-function** (callback into a different function), or **cross-contract** (callback traverses multiple contracts). On non-EVM chains, analogous patterns exist wherever cross-program invocations can recurse.
+これは外部呼び出しを行うあらゆるコントラクタタイプに影響を及ぼします。これには、DeFi (トークン転送、DEX スワップ、vault の預け入れ/引き落とし、フラッシュローンコールバック)、NFT (ERC-721/ERC-1155 レシーバーフックを伴う転送、マーケットプレイスでの支払い)、DAO (外部コントラクトを呼び出す提案の実行)、ブリッジ (メッセージリレー、資産転送)、コンポーザブルプロトコル (ERC-777 フック、ERC-4626 預け入れ/引き落としフック) があります。再入可能性は **シングルファンクション** (同じ関数が再帰的に呼び出される)、**クロスファンクション** (異なる関数へのコールバック)、**クロスコントラクト** (コールバックが複数のコントラクトをまたぐ) があります。非 EVM チェーンでは、プログラム間呼び出しが再帰する可能性のあるいずれにおいても、同様のパターンが存在します。
 
-Few areas to focus on:
+注目する領域は以下のとおりです。
 
-- **Classic withdraw-before-update** (state change after external call)
-- **Callback and hook interfaces** (ERC-777, ERC-721/1155 receivers, ERC-4626, flash loan callbacks)
-- **Cross-function reentrancy** (read-your-writes assumptions between functions)
-- **Read-only reentrancy** (view functions or oracles reading state during a callback)
-- **Cross-contract and multi-module** reentrancy (vault → strategy → DEX flows)
+- **従来の更新前引き落とし** (外部呼び出し後の状態変更)
+- **コールバックとフックインタフェース** (ERC-777、ERC-721/1155 レシーバ、ERC-4626、フラッシュローンコールバック)
+- **関数間の再入可能性** (関数間の書き込み後読み取りの想定)
+- **読み出し専用の再入可能性** (コールバックの中で状態を読み取る関数やオラクルの閲覧)
+- **コントラクト間およびマルチモジュール** の再入可能性 (vault → strategy → DEX フロー)
 
-Attackers exploit:
+攻撃者は以下を悪用します。
 
-- **Malicious tokens or receivers** that re-enter on transfer/hook callbacks
-- **Flash loan callbacks** that execute attacker logic before repayment
-- **Complex call graphs** where state is inconsistent mid-transaction across modules
+- 転送/フックのコールバック上で再入する **悪意のあるトークンやレシーバ**
+- 返済前に攻撃者ロジックを実行する **フラッシュローンコールバック**
+- 状態がトランザクション途中のモジュール間で不整合となる **複雑な呼び出しグラフ**
 
 ### 事例 (脆弱な再入可能性パターン)
 
