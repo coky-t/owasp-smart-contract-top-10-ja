@@ -54,9 +54,9 @@ contract VulnerableVault {
 }
 ```
 
-**Issues:**
+**問題点:**
 
-- An attacker using a malicious token / proxy can re-enter `withdraw` from within the `transfer` call, repeatedly withdrawing based on the unchanged `balances[msg.sender]`.
+- 悪意のあるトークンやプロキシを使用する攻撃者は `transfer` 呼び出し内から `withdraw` を再入し、変更されていない `balances[msg.sender]` に基づいて繰り返し引き落としできます。
 
 ### 事例 (再入安全な引き落とし)
 
@@ -100,11 +100,11 @@ contract SafeVault is ReentrancyGuard {
 }
 ```
 
-**Security Improvements:**
+**セキュリティの改善:**
 
-- Uses `nonReentrant` modifier from OpenZeppelin’s `ReentrancyGuard`.
-- Applies **checks-effects-interactions** pattern to minimize reentrancy windows.
-- Checks transfer return value and reverts on failure.
+- OpenZeppelin の `ReentrancyGuard` から `nonReentrant` 修飾子を使用します。
+- **checks-effects-interactions** パターンを適用して、再入ウィンドウを最小限に抑えます。
+- transfer の戻り値をチェックし、失敗した場合には元に戻します。
 
 ### 2025 ケーススタディ
 
