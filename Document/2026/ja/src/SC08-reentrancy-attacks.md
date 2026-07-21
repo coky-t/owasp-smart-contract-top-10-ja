@@ -108,8 +108,8 @@ contract SafeVault is ReentrancyGuard {
 
 ### 2025 ケーススタディ
 
-- **GMX (July 2025, $42M loss)**  
-  GMX V1 contracts were exploited via a classic yet sophisticated reentrancy vector in `executeDecreaseOrder`. The function accepted the attacker's smart contract address as a parameter; when it transferred control to that address during the refund process, the attacker re-entered and manipulated global average short prices, AUM, and GLP valuations. State updates after external calls and lack of reentrancy guards enabled the drain. The vulnerability was introduced in 2022 as an unaudited patch.  
+- **GMX (2025 年 7 月, 4200 万ドルの損失)**  
+  GMX V1 のコントラクトは `executeDecreaseOrder` の古典的だが洗練された再入ベクトルを介して悪用されました。その関数は攻撃者のスマートコントラクトアドレスをパラメータとして受け入れていましたが、払い戻し処理時にそのアドレスに制御を移された際、攻撃者は再入して、グローバル平均ショート価格、AUM、GLP 評価額を操作しました。外部呼び出し後の状態更新と再入ガードの欠如が流出を可能にしました。この脆弱性は 2022 年に未監査のパッチとして導入されました。
   - [https://blog.solidityscan.com/gmx-v1-hack-analysis-ed0ab0c0dd0f](https://blog.solidityscan.com/gmx-v1-hack-analysis-ed0ab0c0dd0f)
   - [https://www.halborn.com/blog/post/explained-the-gmx-hack-july-2025](https://www.halborn.com/blog/post/explained-the-gmx-hack-july-2025)
   - [https://blog.verichains.io/p/gmx-42m-exploit-root-cause-analysis](https://blog.verichains.io/p/gmx-42m-exploit-root-cause-analysis)
