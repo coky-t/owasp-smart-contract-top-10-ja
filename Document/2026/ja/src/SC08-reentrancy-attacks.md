@@ -116,15 +116,15 @@ contract SafeVault is ReentrancyGuard {
 
 ### ベストプラクティスと緩和策
 
-- Use **`ReentrancyGuard`** or similar reentrancy locks on stateful functions that:
-  - Modify balances or internal accounting.
-  - Perform external calls that could re-enter the contract.
-- Follow **checks-effects-interactions**:
-  - Check preconditions.
-  - Apply all state changes.
-  - Only then call external contracts.
-- Treat **ERC-777 hooks, ERC-4626 hooks, and other callbacks** as reentrancy vectors.
-- Carefully review:
-  - Cross-function interactions (e.g., `deposit` calling `withdraw` internally).
-  - Multi-contract systems where reentrancy may occur across modules, not just within a single contract.
-- Include reentrancy-focused **fuzzing and unit tests**, especially where external calls are involved.
+- 以下のようなステートフル関数には **`ReentrancyGuard`** やそれに類する再入ロックを使用します。
+  - 残高や内部会計処理を変更する関数。
+  - コントラクトに再入する可能性のある外部呼び出しを実行する関数。
+- **checks-effects-interactions** に従います。
+  - 事前条件をチェックします。
+  - すべての状態変更を適用します。
+  - その後でのみ、外部コントラクタを呼び出します。
+- **ERC-777 フック、ERC-4626 フック、およびその他のコールバック** を再入経路として扱います。
+- 以下について注意深くレビューします。
+  - 関数間のやり取り (例: 内部で `withdraw` を呼び出す `deposit` など)。
+  - 単一のコントラクト内だけでなく、モジュールをまたいで再入が発生しうるマルチコントラクトシステム。
+- 特に外部呼び出しが関与する箇所には、再入可能性に焦点を当てた **ファジングやユニットテスト** を組み込みます。
