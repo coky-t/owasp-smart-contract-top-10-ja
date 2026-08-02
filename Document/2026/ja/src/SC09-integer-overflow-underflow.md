@@ -2,24 +2,24 @@
 
 #### 説明
 
-Integer overflow and underflow describe situations where arithmetic operations produce values outside the representable range of the operand type. In Solidity 0.8+, arithmetic is **checked by default** and reverts on overflow/underflow. However, explicit `unchecked` blocks, assembly, or custom libraries can disable these checks. On non-EVM platforms (e.g., Move, Sui, Solana, Rust-based chains), default overflow semantics differ—some wrap silently, some abort—and incorrect assumptions or flawed custom checks can lead to wrapped values, miscomputed balances, and broken invariants.
+整数オーバーフローとアンダーフローは、算術演算がオペランド型の表現可能な範囲外の値を生じる状況を指します。Solidity 0.8 以降では、算術演算は **デフォルトでチェック** され、オーバーフロー/アンダーフローで元に戻ります。しかし、明示的な `unchecked` ブロック、アセンブリ、またはカスタムライブラリではこれらのチェックを無効にできます。非 EVM プラットフォーム (Move, Sui, Solana, Rust ベースのチェーンなど) では、デフォルトのオーバーフローセマンティクスが異なります。あるものは暗黙的にラップし、あるものはアボートします。誤った前提や欠陥のあるカスタムチェックは、ラップされた値、残高の計算ミス、不変数の破綻につながる可能性があります。
 
-This affects all contract types that perform arithmetic: DeFi (pool invariants, balances, interest, shares), NFTs (supply, token IDs), bridges (amounts, sequence numbers), and any logic involving large or user-controlled numeric inputs. The impact is especially severe when overflow/underflow breaks economic invariants (e.g., k = x * y in AMMs) or enables balance manipulation.
+これは、算術演算を行うあらゆるタイプのコントラクトに影響を及ぼします。DeFi (プールの不変数、残高、金利、シェア)、NFT (供給、トークン ID)、ブリッジ (金額、シーケンス番号)、大きな数値やユーザーが制御する数値の入力に関連する任意のロジックがあります。特に、オーバーフロー/アンダーフローが経済的不変数 (AMM での k = x * y など) を損なったり、残高操作を可能にする場合、その影響は極めて深刻です。
 
-Few areas to focus on:
+注目する領域は以下のとおりです。
 
-- **EVM/Solidity** (use of `unchecked`, assembly, pre-0.8 codebases)
-- **Non-EVM chains** (Move, Sui, Aptos, Solana, etc.) and their default overflow semantics
-- **Multiplication and exponentiation** (high risk of overflow with large operands)
-- **Subtraction and decrement** (underflow when subtrahend > minuend)
-- **Casting and type conversion** (downcasting uint256 to uint128, etc.)
+- **EVM/Solidity** (`unchecked`、アセンブリ、0.8 以前のコードベースの使用)
+- **非 EVM チェーン** (Move, Sui, Aptos, Solana, など) およびそれらのデフォルトオーバーフローセマンティクス
+- **乗算とべき乗** (大きなオペランドでのオーバーフローのリスクが高い)
+- **減算とデクリメント** (減数 > 被減数 の場合にアンダーフロー)
+- **キャストと型変換** (uint256 から uint128 へのダウンキャストなど)
 
-Attackers exploit:
+攻撃者は以下を悪用します。
 
-- **Unchecked blocks** in Solidity where overflow/underflow is assumed impossible but edge cases exist
-- **Non-EVM semantics** where silent wrap or custom checks can be bypassed
-- **Large or crafted inputs** that trigger overflow in multiplication or addition chains
-- **Invariant-breaking values** (e.g., overflow producing a small k that passes naive checks)
+- Solidity での **unchecked ブロック**: オーバーフロー/アンダーフローは不可能と想定されるが、エッジケースが存在する場合
+- **非 EVM セマンティクス**: 暗黙的なラップや、カスタムチェックがバイパスできる場合
+- **大きな入力や細工された入力**: 乗算や加算のチェーンでオーバーフローが発生する場合
+- **不変数を破壊する値** (例: 小さな k を生成するオーバーフローによって、単純なチェックを通過する)
 
 ### 事例 1: Solidity Pre-0.8 オーバーフロー (EVM)
 
