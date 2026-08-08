@@ -23,9 +23,9 @@
 
 ### 事例 1: Solidity Pre-0.8 オーバーフロー (EVM)
 
-In Solidity versions **before 0.8.0**, arithmetic overflow and underflow occurred **silently**—no revert, no error. Values wrapped around (e.g., `uint8` 255 + 1 = 0). Solidity 0.8.0+ fixes this by default; overflow/underflow reverts unless explicitly wrapped in `unchecked`.
+Solidity バージョン **0.8.0 未満** では、算術オーバーフローやアンダーフローが **静かに** 発生しました。元に戻らず、エラーにもなりません。値はラップアラウンドしました (例: `uint8` 255 + 1 = 0)。Solidity 0.8.0 以降はデフォルトでこれを修正しており、オーバーフロー/アンダーフローは `unchecked` で明示的にラップされていない限り元に戻ります。
 
-**Vulnerable (Solidity 0.7.x):**
+**脆弱なもの (Solidity 0.7.x):**
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -42,7 +42,7 @@ contract VulnerableToken {
 }
 ```
 
-**Fixed (Option A—SafeMath for 0.7.x):**
+**修正済み (オプション A — 0.7.x 向けの SafeMath):**
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -61,7 +61,7 @@ contract SafeToken {
 }
 ```
 
-**Fixed (Option B—Upgrade to Solidity 0.8+):**
+**修正済み (オプション B — Solidity 0.8 以降にアップグレード):**
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -77,7 +77,7 @@ contract SafeToken {
 }
 ```
 
-**Key takeaway:** Solidity 0.8.0+ provides built-in overflow/underflow checks. Use `unchecked` only when you have strong guarantees; otherwise prefer checked arithmetic.
+**重要な結論:** Solidity 0.8.0 以降ではビルトインのオーバーフロー/アンダーフローチェックを提供しています。強い保証がある場合にのみ `unchecked` を使用します。そうでなければ、チェック付き算術演算を選択します。
 
 ---
 
