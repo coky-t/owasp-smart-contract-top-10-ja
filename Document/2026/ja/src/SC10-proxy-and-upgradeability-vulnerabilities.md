@@ -46,10 +46,10 @@ contract VulnerableProxyAdmin {
 }
 ```
 
-**Issues:**
+**問題点:**
 
-- No access control on `upgrade`; any caller can change `implementation`.
-- No checks on `newImplementation` (e.g., interface compatibility, non-zero address).
+- `upgrade` にアクセス制御がなく、任意の呼び出し元が `implementation` を変更できます。
+- `newImplementation` のチェックがありません (インタフェースの互換性、非ゼロアドレスなど)。
 
 ### 事例 (より安全なアップグレード可能性パターン)
 
@@ -83,20 +83,20 @@ contract SafeProxyAdmin is Ownable {
 }
 ```
 
-**Security Improvements:**
+**セキュリティの改善:**
 
-- `upgrade` is restricted to the contract owner (which should itself be a robust governance or multisig).
-- Implementation addresses are validated and upgrades are logged via events.
+- `upgrade` はコントラクト所有者 (それ自体が堅牢なガバナンスやマルチシグであるべきです) に制限されています。
+- 実装アドレスは検証され、アップグレードはイベントを介してログ記録されています。
 
 ### 初期化と再初期化のリスク
 
-Initialization functions (e.g., `initialize()`, `initializer` modifiers in OpenZeppelin) are critical in upgradeable patterns. Common pitfalls:
+初期化関数 (`initialize()`, OpenZeppelin の `initializer` 修飾子など) がアップグレード可能なパターンには極めて重要です。よくある落とし穴は以下のとおりです。
 
-- **Unprotected initializers** that anyone can call.
-- **Re-initialization** that can reset ownership, configuration, or state.
-- Initialization logic that can be reached **through delegatecalls** from proxies in unintended ways.
+- **保護されていない初期化**: 誰でも呼び出しできます。
+- **再初期化**: 所有権、設定、状態をリセットできます。
+- 初期化ロジック: 意図しない方法でプロキシから **delegatecall を通じて** 到達できます。
 
-Basic example:
+基本的な事例:
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -112,7 +112,7 @@ contract VulnerableLogic {
 }
 ```
 
-If used behind a proxy without proper initialization control, attackers can call `initialize` via the proxy and set themselves as owner, taking over the protocol.
+適切な初期化制御なしでプロキシの背後で使用した場合、攻撃者はプロキシを介して `initialize` を呼び出して、自信を所有者として設定し、プロトコルを乗っ取ることができます。
 
 ### 2025 ケーススタディ
 
