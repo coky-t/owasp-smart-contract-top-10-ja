@@ -2,26 +2,26 @@
 
 #### 説明
 
-Proxy and upgradeability vulnerabilities describe any situation where a smart contract uses an upgradeable architecture (proxy, beacon, or implementation-swapping pattern) and the upgrade path, initialization, or admin controls are misdesigned or misconfigured. Upgradeable contracts separate a **proxy** (which holds state and delegates calls) from an **implementation** (which contains logic). When upgradeability is improperly secured, attackers can hijack the proxy admin or upgrade role to deploy malicious implementations, re-initialize contracts to seize ownership, or bypass critical checks in initialization or migration steps.
+プロキシとアップグレード可能性の脆弱性は、スマートコントラクトがアップグレード可能なアーキテクチャ (プロキシ、ビーコン、または実装入れ替えパターン) を使用し、そのアップグレードパス、初期化、または管理者制御の設計や設定に不備がある状況を指します。アップグレード可能なコントラクトは、**プロキシ** (状態を保持し、呼び出しを委譲する) と **実装** (ロジックを含む) を分離しています。アップグレード可能性が十分に保護されていない場合、攻撃者はプロキシ管理者やアップグレードロールをハイジャックして悪意のある実装をデプロイしたり、コントラクトを再初期化して所有権を奪取したり、初期化や移行の段階での重要なチェックをバイパスできる可能性があります。
 
-This affects all contract types that use upgradeability: DeFi (lending, vaults, DEXes), NFTs (collections, marketplaces), DAOs (governance, treasuries), bridges (messengers, asset contracts), and L2/cross-chain systems. Common patterns include Transparent Proxy, UUPS (EIP-1822), Beacon Proxy, and custom router-implementation designs. On non-EVM chains, analogous upgrade mechanisms exist (e.g., Move modules, Solana program upgrades) with similar trust and initialization risks.
+これはアップグレード可能性を使用するすべてのコントラクトタイプに影響を及ぼします。DeFi (レンディング、Vault、DEX)、NFT (コレクション、マーケットプレイス)、DAO (ガバナンス、トレジャリー)、ブリッジ (メッセンジャー、資産コントラクト)、L2/クロスチェーンシステムがあります。よくあるパターンには、Transparent Proxy、UUPS (EIP-1822)、Beacon Proxy、およびカスタムルーター実装設計を含みます。非 EVM チェーンでは、類似のアップグレードメカニズム (Move モジュール、Solana プログラムアップグレードなど) が存在し、同様の信頼性や初期化のリスクを伴います。
 
-Few areas to focus on:
+注目する領域は以下のとおりです。
 
-- **Upgrade and admin roles** (who can change the implementation, storage layout compatibility)
-- **Initialization and re-initialization** (unprotected `initialize`, missing `initializer` guards, storage collisions)
-- **Proxy delegation** (`delegatecall` context, `msg.sender`/`msg.value` propagation)
-- **Storage layout** (slot collisions between proxy and implementation, append-only storage)
-- **Timelocks and governance** (upgrade process, rollback capability)
+- **アップグレードと管理者ロール** (実装、ストレージレイアウトの互換性を変更できる)
+- **初期化と再初期化** (保護されていない `initialize`、`initializer` ガードの欠如、ストレージの衝突)
+- **プロキシの委譲** (`delegatecall` コンテキスト、`msg.sender`/`msg.value` の伝播)
+- **ストレージレイアウト** (プロキシと実装の間のスロット衝突、追記専用ストレージ)
+- **タイムロックとガバナンス** (アップグレードプロセス、ロールバック機能)
 
-Attackers exploit:
+攻撃者は以下を悪用します。
 
-- **Unprotected upgrade functions** that allow any caller to point the proxy to a malicious implementation
-- **Re-initialization** to reset ownership, configuration, or access controls
-- **Initialization through delegatecall** where implementation can be initialized with attacker-controlled parameters
-- **Storage collision** between proxy and implementation leading to overwrites
+- **保護されていないアップグレード機能**: 任意の呼び出し元がプロキシを悪意のある実装に指し示すようにできます
+- **再初期化**: 所有権、設定、アクセス制御をリセットします
+- **delegatecall を通じた初期化**: 攻撃者が制御するパラメータを用いて実装を初期化できます
+- プロキシと実装の間での **ストレージの衝突**: 上書きにつながります
 
-These issues often overlap with access control (SC01) but warrant separate attention due to the systemic impact of proxy and upgrade mechanisms.
+これらの問題はアクセス制御 (SC01) と重複する部分も多いのですが、プロキシやアップグレードメカニズムのメカニズムがシステム全体に及ぶ影響によって、個別に注意する必要があります。
 
 ### 事例 (脆弱でアップグレード可能なプロキシ管理者)
 
