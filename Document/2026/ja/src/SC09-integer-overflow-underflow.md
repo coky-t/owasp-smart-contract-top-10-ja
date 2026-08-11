@@ -133,7 +133,7 @@ assert!(!overflowing);  // Assertion passed incorrectly due to flawed check
 
 ### 事例 3: Solidity 0.8 以降での `unchecked` (明示的なオプトアウト)
 
-Even on Solidity 0.8+, `unchecked` disables checks. Use only when overflow/underflow is provably impossible:
+Solidity 0.8 以降であっても、`unchecked` はチェックを無効にします。オーバーフロー/アンダーフローが起こりえないことを証明できる場合にのみ使用します。
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -154,7 +154,7 @@ contract UncheckedExample {
 }
 ```
 
-**Avoid `unchecked`** for user-controlled or unbounded inputs unless you have formal reasoning or tests proving safety.
+安全性を証明する形式推論やテストがない限り、ユーザーが制御できる入力や無制限の入力に対して **`unchecked` を避ける** ようにします。
 
 ---
 
