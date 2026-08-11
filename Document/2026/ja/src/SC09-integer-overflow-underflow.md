@@ -83,11 +83,11 @@ contract SafeToken {
 
 ### 事例 2: Cetus プロトコル — Sui/Move (非 EVM)
 
-On **May 22, 2025**, Cetus Protocol (largest DEX on Sui) lost ~$223M due to a flawed overflow check in the `integer-mate` library. In **Move**, addition and multiplication abort on overflow, but **left shift (`<<`) does NOT abort**—it truncates silently. The protocol used a custom `checked_shlw` to guard a `<< 64` shift; the guard was wrong.
+**2025 年 5 月 22 日** に、Cetus Protocol (Sui で最大の DEX) は `integer-mate` ライブラリの欠陥のあるオーバーフローチェックによって、約 2 億 2300 万ドルを失いました。**Move** では、加算や乗算はオーバーフローで中断しますが、**左シフト (`<<`) では中断せず**、静かに切り捨てます。このプロトコルは `<< 64` シフトをガードするためにカスタムの `checked_shlw` を使用していましたが、そのガードには誤りがありました。
 
-**Root cause:** `checked_shlw` in `math_u256.move` used an incorrect threshold. It should reject values with any non-zero bits in the top 64 bits (i.e., `n >= 1 << 192`). The implementation used `n > (0xFFFFFFFFFFFFFFFF << 192)` instead, which is wrong and allowed values ≥ 2^192 to pass, then overflow on `n << 64`.
+**根本原因:** `math_u256.move` の `checked_shlw` は誤った閾値を使用していました。上位 64 ビットに非ゼロビットを持つ値 (つまり `n >= 1 << 192`) を拒否すべきでした。そうではなく、その実装は `n > (0xFFFFFFFFFFFFFFFF << 192)` を使用していました。これは誤りであり、2^192 以上の値を通過してしまい、`n << 64` でオーバーフローになります。
 
-**Vulnerable `checked_shlw` (integer-mate, Sui Move):**
+**脆弱な `checked_shlw` (integer-mate, Sui Move):**
 
 ```move
 // integer-mate/sui/sources/math_u256.move
@@ -102,7 +102,7 @@ public fun checked_shlw(n: u256): (u256, bool) {
 }
 ```
 
-**Fixed `checked_shlw`:**
+**修正済み `checked_shlw`:**
 
 ```move
 // FIXED: correct overflow check—reject if any bits in top 64 bits
@@ -116,7 +116,7 @@ public fun checked_shlw(n: u256): (u256, bool) {
 }
 ```
 
-**Where it was used:** The CLMM function `get_delta_a` in `clmm_math.move` computed token A required for a liquidity position. It called:
+**使用されていた箇所:** `clmm_math.move` 内の CLMM 関数 `get_delta_a` は、流動性ポジションに必要なトークン A を計算していました。それは以下を呼び出していました。
 
 ```move
 let (numerator, overflowing) = math_u256::checked_shlw(
@@ -125,9 +125,9 @@ let (numerator, overflowing) = math_u256::checked_shlw(
 assert!(!overflowing);  // Assertion passed incorrectly due to flawed check
 ```
 
-With `liquidity ≈ 2^113` and `sqrt_price_diff ≈ 2^79`, the product was `≈ 2^192 + ε`. The flawed `checked_shlw` allowed it through; `n << 64` overflowed and truncated to a tiny value. The protocol then computed that only **1 unit** of token A was needed to mint massive liquidity (~10^37 units), enabling the drain.
+`liquidity ≈ 2^113` と `sqrt_price_diff ≈ 2^79` では、その積は `≈ 2^192 + ε` となりました。欠陥のある `checked_shlw` はそれを通してしまい、`n << 64` がオーバーフローして切り捨てられて極めて小さい値になりました。それから、プロトコルはトークン A の **1 ユニット** だけで膨大な流動性 (約 10^37 ユニット) を生成するために必要になると計算し、流出を可能にしました。
 
-**Attack flow (simplified):** Flash swap → open narrow tick position → call `add_liquidity` with crafted liquidity parameter → undercharged (1 token) while credited huge liquidity → remove liquidity → drain pools → repay flash swap.
+**攻撃フロー (簡略化):** フラッシュスワップする → 狭いティックでのポジションを開設する → 細工された流動性パラメータで `add_liquidity` を呼び出す → 過小請求 (1 トークン) し、膨大な流動性をクレジットする → 流動性を削除する → プールから流出する → フラッシュスワップを返済する。
 
 ---
 
