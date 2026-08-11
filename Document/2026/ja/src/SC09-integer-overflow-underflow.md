@@ -168,14 +168,14 @@ Sui の Cetus Protocol は共有の `integer-mate` ライブラリ内の欠陥�
 
 ### ベストプラクティスと緩和策
 
-- On Solidity/EVM:
-  - **Avoid `unchecked`** arithmetic unless you have strong reasons and tests proving safety.
-  - Use explicit checks and custom errors for critical invariants.
-  - Favor well-reviewed math libraries (for fixed-point, exponentiation, etc.).
-- On non-EVM environments (e.g., Move, Rust-based chains):
-  - Understand the language’s **default overflow semantics**.
-  - Use safe arithmetic constructs or libraries where available.
-  - Add **assertions and invariants** around critical arithmetic.
-- Test with **extreme value ranges**:
-  - Minimum and maximum values for all numeric types.
-  - Fuzz tests that target edge cases (near boundaries where overflow/underflow is likely).
+- Solidity/EVM の場合:
+  - 明確な理由と安全性を証明するテストがない限り、**`unchecked`** 算術演算を **避けます**。
+  - 重要な不変条件に対して明示的なチェックとカスタムエラーを使用します。
+  - (固定小数点、べき乗などには) 十分にレビューされた数学ライブラリを優先します。
+- 非 EVM 環境 (Move, Rust ベースのチェーンなど) の場合:
+  - その言語の **デフォルトのオーバーフローの挙動** を理解します。
+  - 可能であれば、安全な算術演算のコンストラクトやライブラリを使用します。
+  - 重要な算術演算の前後には **アサーションと不変条件** を追加します。
+- **極端な値範囲** でテストする:
+  - すべての数値タイプにおける最小値と最大値。
+  - エッジケース (オーバーフロー/アンダーフローとなりやすい境界付近) を対象としたファズテスト。
