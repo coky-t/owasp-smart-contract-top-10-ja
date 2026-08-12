@@ -126,15 +126,15 @@ contract VulnerableLogic {
 
 ### ベストプラクティスと緩和策
 
-- **Use well-established proxy patterns and libraries** (e.g., OpenZeppelin UUPS/transparent proxies) instead of bespoke designs.
-- Protect upgrade and admin roles with **robust governance / multisigs**; never leave them on EOAs without strong operational controls.
-- Apply **initializer guards**:
-  - Use `initializer` and `reinitializer` modifiers correctly.
-  - Lock implementation contracts once deployed to prevent direct initialization.
-- Require **timelocks and multi-step processes** for upgrades:
-  - Announce upgrade proposals.
-  - Allow time for review/monitoring before execution.
-- Maintain comprehensive **upgrade runbooks** and checklists, including:
-  - Testing of migrations.
-  - Verification of new implementation code and storage layout.
-  - On-chain simulation of upgrade steps where possible.
+- 独自設計ではなく **十分に確立されたプロキシパターンとライブラリを使用します** (OpenZeppelin UUPS/透過プロキシなど)。
+- アップグレードや管理者のロールを **堅牢なガバナンス / マルチシグ** で保護します。厳格な運用制御なしで EOA に委ねてはいけません。
+- **初期化関数ガード** を適用します:
+  - `initializer` および `reinitializer` 修飾子を適切に使用します。
+  - 実装コントラクトをデプロイ後にロックして、直接的な初期化を防止します。
+- アップグレードには **タイムロックとマルチステッププロセス** を必須とします:
+  - アップグレード計画を公表します。
+  - 実行前にレビュー/監視の時間を確保します。
+- 包括的な **アップグレードランブック** やチェックリストを維持します。以下を含みます:
+  - 移行のテスト。
+  - 新しい実装コードとストレージレイアウトの検証。
+  - 可能であれば、アップグレード手順のオンチェーンシミュレーション。
