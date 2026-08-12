@@ -116,11 +116,11 @@ contract VulnerableLogic {
 
 ### 2025 ケーススタディ
 
-- **Kinto Protocol (July 2025, $1.55M loss)**  
-  Attackers exploited **uninitialized ERC1967 proxy contracts**. They detected freshly deployed proxy contracts that had not been properly initialized, then initialized them with malicious implementations containing dormant backdoors. Months later, the attacker activated the backdoor, upgraded the proxy to malicious code, and minted K tokens directly to drain $1.55M. The vulnerability: **unprotected initialization** allowing anyone to become the proxy admin.  
+- **Kinto Protocol (2025 年 7 月, 155 万ドルの損失)**  
+  攻撃者は **初期化されていない ERC1967 プロキシコントラクト** を悪用しました。適切に初期化されないままデプロイされたばかりのプロキシコントラクトを特定し、そこに休眠状態のバックドアを含む悪意のある実装で初期化しました。数か月後、攻撃者はバックドアを有効化して、プロキシを悪意のあるコードにアップグレードし、K トークンを直接発行して 155 万ドルを流出しました。脆弱性: **初期化は保護されておらず**、誰でもプロキシ管理者になることが可能でした。
 
-- **Uninitialized Proxy Campaign (2025, $10M+ across protocols)**  
-  A broader campaign targeted uninitialized ERC1967 proxies across multiple EVM chains. Attackers used automated scanning to detect newly deployed proxies before legitimate developers could initialize them, then initialized with malicious implementations. The backdoors lay dormant for months, evading audits. When activated, attackers could upgrade proxies and drain funds.  
+- **未初期化プロキシへのキャンペーン (2025 年, 複数プロトコルにわたり 1000 万ドル超)**  
+  複数の EVM チェーンにわたる未初期化 ERC1967 プロキシを対象にした大規模なキャンペーンです。攻撃者は自動スキャンを使用して、正規の開発者が初期化を行う前に新規デプロイされたプロキシを検出し、悪意のある実装で初期化しました。バックドアは数か月休眠状態にあり、監査を逃れました。有効化した際に、攻撃者はプロキシをアップグレードして資金を流出しました。
   - [https://audita.io/blog-articles/the-proxy-hack-uninitialized-contracts-costing-defi-10m-in-losses](https://audita.io/blog-articles/the-proxy-hack-uninitialized-contracts-costing-defi-10m-in-losses)
   - [https://medium.com/mamori-finance/post-mortem-k-proxy-hack-our-path-forward-c2c3809882c6](https://medium.com/mamori-finance/post-mortem-k-proxy-hack-our-path-forward-c2c3809882c6)
 
