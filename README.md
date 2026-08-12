@@ -2,7 +2,7 @@
 
 This is the unofficial Japanese translation of the [OWASP Smart Contract Top 10](https://github.com/OWASP/www-project-smart-contract-top-10).
 
-**!!! Work In Progress !!!**
+<!-- **!!! Work In Progress !!!** -->
 
 <!-- - Document Site - <https://coky-t.gitbook.io/owasp-smart-contract-top-10-ja/> -->
 - Document Repository - <https://github.com/coky-t/owasp-smart-contract-top-10-ja>
